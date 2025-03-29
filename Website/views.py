@@ -15,7 +15,7 @@ def bookings():
     return "<h2>Bookings</h2>"
 
 @views.route('/post')
-def bookings():
+def post():
     return "<h2>Post</h2>"
 
 @views.route('/student-dashboard')
@@ -27,5 +27,5 @@ def student_profile():
     return "<h2>Student Profile</h2>"
 
 @views.route('/chat')
-def student_profile():
+def chat():
     return "<h2>Chat<h2>"
