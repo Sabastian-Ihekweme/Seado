@@ -33,8 +33,8 @@ def tutor_recent_chats():
     return "<h2>Tutor Recent Chats</h2>"
 
 @views.route('/tutor-view-post')
-def tutor_recent_chats():
-    return "<h2>Tutor Recent Chats</h2>"
+def tutor_view_post():
+    return "<h2>Tutor View Post</h2>"
 
 @views.route('/tutor-view-student')
 def tutor_view_student():
@@ -65,11 +65,11 @@ def student_live_session():
     return "<h2>Student Live Session</h2>"
 
 @views.route('/student-live-session-end')
-def student_live_session():
+def student_live_session_end():
     return "<h2>Student Live Session End</h2>"
 
 @views.route('/student-recent-chats')
-def student_live_session():
+def student_recent_chats():
     return "<h2>Student Recent Chats</h2>"
 
 @views.route('/student-view-materials')
