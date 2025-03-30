@@ -4,7 +4,7 @@ auth = Blueprint('auth', __name__)
 
 @auth.route('/tutor-signup')
 def tutor_signup():
-    return "<h2>Tutor Signup</h2>"
+    return render_template("tutor/tutor-signup.html")
 
 @auth.route('/tutor-login')
 def tutor_login():

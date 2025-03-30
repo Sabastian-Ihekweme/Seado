@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutor Sign Up</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}">
+    <script defer src="script.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <div class="container">
+        <div class="form-box">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='icons/seado-logo.png') }}" alt="Seado Logo">
+            </div>
+            <h2>Tutor Sign Up</h2>
+
+            <form>
+                <input type="text" placeholder="First Name" required>
+                <input type="text" placeholder="Last Name" required>
+                <label for="qualification"></label>
+                <select id="qualification" name="qualification" required>
+                    <option value="" disabled selected>Select your qualification</option>
+                    <option value="PhD">Doctorate (PhD, MD, JD, etc.)</option>
+                    <option value="Masters">Master's Degree (MSc, MA, MBA, MEng, etc.)</option>
+                    <option value="Bachelors">Bachelor's Degree (BSc, BA, BEng, BBA, etc.)</option>
+                    <option value="Associate">Associate Degree</option>
+                    <option value="Diploma">Diploma</option>
+                    <option value="Certificate">Professional Certification</option>
+                    <option value="Postdoc">Postdoctoral Research</option>
+                    <option value="HighSchool">High School Diploma or Equivalent</option>
+                    <option value="Vocational">Vocational Training (Trade School, Apprenticeship)</option>
+                    <option value="Other">Other</option>
+                </select>
+                <input type="text" id="course" name="course" list="course-list" placeholder="Start typing a course...">
+
+                <datalist id="course-list">
+                    <option value="Computer Science">
+                    <option value="Mathematics">
+                    <option value="Physics">
+                    <option value="Chemistry">
+                    <option value="Biology">
+                    <option value="Medicine">
+                    <option value="Law">
+                    <option value="Mechanical Engineering">
+                    <option value="Electrical Engineering">
+                    <option value="Business Administration">
+                    <option value="Marketing">
+                    <option value="Accounting">
+                    <option value="Finance">
+                    <option value="Psychology">
+                    <option value="Architecture">
+                    <option value="Civil Engineering">
+                    <option value="Data Science">
+                    <option value="Artificial Intelligence">
+                    <option value="Cybersecurity">
+                    <option value="Graphic Design">
+                    <option value="Digital Marketing">
+                    <option value="Music Production">
+                    <option value="Theater Arts">
+                    <option value="Environmental Science">
+                    <option value="Astronomy">
+                    <option value="Linguistics">
+                    <option value="International Relations">
+                    <option value="Political Science">
+                    <option value="Economics">
+                    <option value="Nursing">
+                    <option value="Pharmacy">
+                    <option value="Software Engineering">
+                    <option value="Journalism">
+                    <option value="Culinary Arts">
+                    <option value="Game Development">
+                    <option value="Animation">
+                    <option value="Fashion Design">
+                    <option value="Agricultural Science">
+                    <option value="Sports Science">
+                    <option value="Education">
+                    <option value="Sociology">
+                    <option value="Anthropology">
+                    <option value="Religious Studies">
+                    <option value="History">
+                    <option value="Philosophy">
+                    <option value="Geography">
+                    <option value="Human Resource Management">
+                </datalist>
+
+
+                <div class="input-icon">
+                    <input type="email" placeholder="Gmail" required>
+                    <i class="fas fa-envelope"></i>
+                </div>
+
+                <div class="input-icon">
+                    <input type="password" placeholder="Password" id="password" required>
+                    <i class="fas fa-eye toggle-password" onclick="togglePassword('password')"></i>
+                </div>
+
+                <div class="input-icon">
+                    <input type="password" placeholder="Confirm Password" id="confirm-password" required>
+                    <i class="fas fa-eye toggle-password" onclick="togglePassword('confirm-password')"></i>
+                </div>
+
+                <button type="submit" class="signup-btn">Signup</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
