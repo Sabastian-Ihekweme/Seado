@@ -2,6 +2,11 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from os import path
+import os 
+
+UPLOAD_FOLDER = 'Website/static/uploads'
+ALLOWED_EXTENSTIONS = {'png','jpg', 'jpeg', 'gif', 'mp4', 'avi', 'mov', 'pdf', 'docx'}
+
 
 db = SQLAlchemy()
 DB_NAME = 'database.db'
@@ -21,6 +26,8 @@ def create_app():
 
     from .models import Tutor, Student
     create_database(app)
+
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
     return app
