@@ -10,11 +10,11 @@ class Tutor(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     firstName = db.Column(db.String(150), nullable=False)
     lastName = db.Column(db.String(150), nullable=False)
-    profilePicture = db.Column(db.String(255), nullable=True)
     qualification = db.Column(db.String(150), nullable=False)
     course = db.Column(db.String(150), nullable=False)
     email = db.Column(db.String(150), unique=True, nullable=False)
     password = db.Column(db.String(150), nullable=False)
+    profilePicture = db.Column(db.String(255), nullable=True)
 
 
 #Table for tutors

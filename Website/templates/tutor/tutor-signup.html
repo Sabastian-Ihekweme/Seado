@@ -5,10 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tutor Sign Up</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}">
-    <script defer src="script.js"></script>
+    <script src="{{ url_for('static', filename='script/script.js') }}"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
+
+    <div class="flash-container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash-message {{ category }}">
+                    {{ message|safe }}  <!-- This ensures HTML inside the flash message is rendered -->
+                    <button onclick="this.parentElement.style.display='none'">×</button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    </div>
 
     <div class="container">
         <div class="form-box">
@@ -17,9 +30,10 @@
             </div>
             <h2>Tutor Sign Up</h2>
 
-            <form>
-                <input type="text" placeholder="First Name" required>
-                <input type="text" placeholder="Last Name" required>
+
+            <form action="{{ url_for('auth.tutor_signup') }}" method="POST">
+                <input type="text" name="firstName" placeholder="First Name" required>
+                <input type="text" name="lastName" placeholder="Last Name" required>
                 <label for="qualification"></label>
                 <select id="qualification" name="qualification" required>
                     <option value="" disabled selected>Select your qualification</option>
@@ -88,21 +102,27 @@
 
 
                 <div class="input-icon">
-                    <input type="email" placeholder="Gmail" required>
+                    <input type="email" name="email" placeholder="Gmail" required>
                     <i class="fas fa-envelope"></i>
                 </div>
 
                 <div class="input-icon">
-                    <input type="password" placeholder="Password" id="password" required>
+                    <input type="password" name="password1" placeholder="Password" id="password" required>
                     <i class="fas fa-eye toggle-password" onclick="togglePassword('password')"></i>
                 </div>
 
                 <div class="input-icon">
-                    <input type="password" placeholder="Confirm Password" id="confirm-password" required>
+                    <input type="password" name="password2" placeholder="Confirm Password" id="confirm-password" required>
                     <i class="fas fa-eye toggle-password" onclick="togglePassword('confirm-password')"></i>
                 </div>
 
-                <button type="submit" class="signup-btn">Signup</button>
+                <div class="input-icon">
+                    Upload profile picture
+                    <input type="file" name="profilePicture" accept="image/*" placeholder="Upload profile picture" required>
+                    <i class="fas fa-camera"></i>
+                </div>
+
+                <button type="submit" name="signup-button" class="signup-btn">Signup</button>
             </form>
         </div>
     </div>

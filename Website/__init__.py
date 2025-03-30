@@ -2,19 +2,27 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from os import path
+from werkzeug.utils import secure_filename
 import os 
 
-UPLOAD_FOLDER = 'Website/static/uploads'
-ALLOWED_EXTENSTIONS = {'png','jpg', 'jpeg', 'gif', 'mp4', 'avi', 'mov', 'pdf', 'docx'}
+UPLOAD_FOLDER = os.path.join(os.getcwd(), 'static', 'uploads', 'profile-pics')
+if not os.path.exists(UPLOAD_FOLDER):
+    os.makedirs(UPLOAD_FOLDER)
+    print("Created upload folder:", UPLOAD_FOLDER)
+ALLOWED_EXTENSIONS = {'png','jpg', 'jpeg', 'gif', 'mp4', 'avi', 'mov', 'pdf', 'docx'}
 
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 db = SQLAlchemy()
 DB_NAME = 'database.db'
 
 def create_app():
     app = Flask(__name__)
-    app.config['SECRET KEY'] = 'airbus'
+    app.config['SECRET_KEY'] = 'airbus'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
     db.init_app(app)
 
     from .auth import auth
