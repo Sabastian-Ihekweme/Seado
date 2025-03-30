@@ -193,3 +193,12 @@ input[list]:focus {
     color: #ff4500; /* Change color when clicked */
 }
 
+.instead {
+    cursor: pointer;
+}
+
+.insted:hover {
+    color: gray;
+    transition: 0.1s;
+}
+

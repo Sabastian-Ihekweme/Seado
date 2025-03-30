@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Sign Up</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}">
+    <script src="{{ url_for('static', filename='script/script.js') }}"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <div class="flash-container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash-message {{ category }}">
+                    {{ message|safe }}  <!-- This ensures HTML inside the flash message is rendered -->
+                    <button onclick="this.parentElement.style.display='none'">×</button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    </div>
+
+    <div class="container">
+        <div class="form-box">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='icons/seado-logo.png') }}" alt="Seado Logo">
+            </div>
+            <h2>Student Sign Up</h2>
+
+
+            <form action="{{ url_for('auth.student_signup') }}" method="POST">
+                <input type="text" name="firstName" placeholder="First Name" required>
+                <input type="text" name="lastName" placeholder="Last Name" required>
+                <label for="school"></label>
+                <input type="text" id="school" name="school" list="school-list" placeholder="Start typing your school...">
+                <datalist id="school-list">
+                    <!-- Alphabetically sorted list -->
+                    <option value="Abia State University, Uturu">
+                    <option value="Abubakar Tafawa Balewa University, Bauchi">
+                    <option value="Ahmadu Bello University, Zaria">
+                    <option value="American University of Nigeria, Yola">
+                    <option value="Babcock University, Ilishan-Remo">
+                    <option value="Bayero University, Kano">
+                    <option value="California Institute of Technology (Caltech), United States">
+                    <option value="Carnegie Mellon University, United States">
+                    <option value="Covenant University, Ota">
+                    <option value="Cross River University of Technology, Calabar">
+                    <option value="Delta State University, Abraka">
+                    <option value="Duke University, United States">
+                    <option value="Ecole Polytechnique Fédérale de Lausanne (EPFL), Switzerland">
+                    <option value="Ekiti State University, Ado-Ekiti">
+                    <option value="ETH Zurich - Swiss Federal Institute of Technology, Switzerland">
+                    <option value="Federal University Lokoja, Lokoja">
+                    <option value="Federal University of Agriculture, Abeokuta, Abeokuta">
+                    <option value="Federal University of Technology, Akure, Akure">
+                    <option value="Federal University of Technology, Minna, Minna">
+                    <option value="Federal University of Technology, Owerri, Owerri">
+                    <option value="Federal University Oye-Ekiti, Oye-Ekiti">
+                    <option value="Fudan University, China">
+                    <option value="Godfrey Okoye University, Enugu">
+                    <option value="Harvard University, United States">
+                    <option value="Imperial College London, United Kingdom">
+                    <option value="Joseph Ayo Babalola University, Ikeji-Arakeji">
+                    <option value="Joseph Sarwuan Tarka University, Makurdi">
+                    <option value="Kebbi State University of Science and Technology, Aliero">
+                    <option value="King's College London, United Kingdom">
+                    <option value="Kogi State University, Anyigba">
+                    <option value="Korea Advanced Institute of Science and Technology (KAIST), South Korea">
+                    <option value="Kyoto University, Japan">
+                    <option value="Ladoke Akintola University of Technology, Ogbomoso">
+                    <option value="Lagos State University, Lagos">
+                    <option value="London School of Economics and Political Science (LSE), United Kingdom">
+                    <option value="Massachusetts Institute of Technology (MIT), United States">
+                    <option value="McGill University, Canada">
+                    <option value="National University of Singapore (NUS), Singapore">
+                    <option value="Nanyang Technological University (NTU), Singapore">
+                    <option value="New York University (NYU), United States">
+                    <option value="Nile University of Nigeria, Abuja">
+                    <option value="Northwestern University, United States">
+                    <option value="Obafemi Awolowo University, Ile-Ife">
+                    <option value="Pan-Atlantic University, Lagos">
+                    <option value="Peking University, China">
+                    <option value="Princeton University, United States">
+                    <option value="Rivers State University, Port Harcourt">
+                    <option value="Seoul National University, South Korea">
+                    <option value="Skyline University, Kano">
+                    <option value="Stanford University, United States">
+                    <option value="Technical University of Munich (TUM), Germany">
+                    <option value="The Chinese University of Hong Kong (CUHK), Hong Kong">
+                    <option value="The University of Edinburgh, United Kingdom">
+                    <option value="The University of Manchester, United Kingdom">
+                    <option value="The University of Queensland, Australia">
+                    <option value="The University of Tokyo, Japan">
+                    <option value="Thomas Adewumi University, Oko-Irese">
+                    <option value="Tsinghua University, China">
+                    <option value="Université PSL (Paris Sciences & Lettres), France">
+                    <option value="University College London (UCL), United Kingdom">
+                    <option value="University of Agriculture, Makurdi, Makurdi">
+                    <option value="University of Benin, Benin City">
+                    <option value="University of British Columbia (UBC), Canada">
+                    <option value="University of California, Berkeley, United States">
+                    <option value="University of California, Los Angeles (UCLA), United States">
+                    <option value="University of California, San Diego (UCSD), United States">
+                    <option value="University of Cambridge, United Kingdom">
+                    <option value="University of Calabar, Calabar">
+                    <option value="University of Chicago, United States">
+                    <option value="University of Hong Kong (HKU), Hong Kong">
+                    <option value="University of Ibadan, Ibadan">
+                    <option value="University of Ilorin, Ilorin">
+                    <option value="University of Jos, Jos">
+                    <option value="University of Lagos, Lagos">
+                    <option value="University of Melbourne, Australia">
+                    <option value="University of Michigan-Ann Arbor, United States">
+                    <option value="University of Nigeria, Nsukka">
+                    <option value="University of New South Wales (UNSW), Australia">
+                    <option value="University of Oxford, United Kingdom">
+                    <option value="University of Pennsylvania, United States">
+                    <option value="University of Port Harcourt, Port Harcourt">
+                    <option value="University of Science and Technology of China (USTC), China">
+                    <option value="University of Sydney, Australia">
+                    <option value="University of Texas at Austin, United States">
+                    <option value="University of Toronto, Canada">
+                    <option value="University of Uyo, Uyo">
+                    <option value="University of Washington, United States">
+                    <option value="University of Sydney, Australia">
+                    <option value="University of Melbourne, Australia">
+                    <option value="University of Waterloo, Canada">
+                    <option value="Usmanu Danfodiyo University, Sokoto">
+                    <option value="Yale University, United States">
+                    <option value="Zhejiang University, China">
+                </datalist>
+                
+                <input type="text" id="level-of-study" name="level-of-study" list="level-list" placeholder="Level of Study">
+                <datalist id="course-list">
+                    <option value="Primary Education">
+                        <option value="Secondary Education">
+                        <option value="High School Diploma">
+                        <option value="Associate Degree">
+                        <option value="Foundation Program">
+                        <option value="Undergraduate Certificate">
+                        <option value="Undergraduate Diploma">
+                        <option value="Bachelors Degree">
+                        <option value="Bachelor of Arts (BA)">
+                        <option value="Bachelor of Science (BSc)">
+                        <option value="Bachelor of Engineering (BEng)">
+                        <option value="Bachelor of Business Administration (BBA)">
+                        <option value="Bachelor of Education (BEd)">
+                        <option value="Bachelor of Fine Arts (BFA)">
+                        <option value="Bachelor of Laws (LLB)">
+                        <option value="Bachelor of Medicine, Bachelor of Surgery (MBBS)">
+                        <option value="Bachelor of Nursing (BN)">
+                        <option value="Bachelor of Pharmacy (BPharm)">
+                        <option value="Bachelor of Technology (BTech)">
+                        <option value="Postgraduate Certificate">
+                        <option value="Postgraduate Diploma">
+                        <option value="Masters Degree">
+                        <option value="Master of Arts (MA)">
+                        <option value="Master of Science (MSc)">
+                        <option value="Master of Business Administration (MBA)">
+                        <option value="Master of Education (MEd)">
+                        <option value="Master of Engineering (MEng)">
+                        <option value="Master of Fine Arts (MFA)">
+                        <option value="Master of Laws (LLM)">
+                        <option value="Master of Public Administration (MPA)">
+                        <option value="Master of Public Health (MPH)">
+                        <option value="Master of Pharmacy (MPharm)">
+                        <option value="Master of Social Work (MSW)">
+                        <option value="Doctorate (PhD)">
+                        <option value="Doctor of Business Administration (DBA)">
+                        <option value="Doctor of Education (EdD)">
+                        <option value="Doctor of Medicine (MD)">
+                        <option value="Doctor of Pharmacy (PharmD)">
+                        <option value="Doctor of Dental Surgery (DDS)">
+                        <option value="Doctor of Veterinary Medicine (DVM)">
+                        <option value="Professional Certification">
+                        <option value="Chartered Accountant (CA)">
+                        <option value="Certified Public Accountant (CPA)">
+                        <option value="Project Management Professional (PMP)">
+                        <option value="Certified Information Systems Auditor (CISA)">
+                        <option value="Certified Ethical Hacker (CEH)">
+                        <option value="Microsoft Certified Solutions Expert (MCSE)">
+                        <option value="Cisco Certified Network Associate (CCNA)">
+                        <option value="Certified Data Scientist">
+                        <option value="Certified Human Resource Professional (CHRP)">
+                        <option value="Certified Financial Planner (CFP)">
+                        <option value="Medical Residency">
+                        <option value="Postdoctoral Research">
+                </datalist>
+
+            <input type="number" id="year" name="year" list="year" placeholder="Year">
+                <datalist id="course-list">
+                    <option value="1">
+                    <option value="2">
+                    <option value="3">
+                    <option value="4">
+                    <option value="5">
+                    <option value="6">
+                    <option value="7"></option>
+                </datalist>
+
+                <div class="input-icon">
+                    <input type="email" name="email" placeholder="Gmail" required>
+                    <i class="fas fa-envelope"></i>
+                </div>
+
+                <div class="input-icon">
+                    <input type="password" name="password1" placeholder="Password" id="password" required>
+                    <i class="fas fa-eye toggle-password" onclick="togglePassword('password')"></i>
+                </div>
+
+                <div class="input-icon">
+                    <input type="password" name="password2" placeholder="Confirm Password" id="confirm-password" required>
+                    <i class="fas fa-eye toggle-password" onclick="togglePassword('confirm-password')"></i>
+                </div>
+
+                <div class="input-icon">
+                    Upload profile picture
+                    <input type="file" name="profilePicture" accept="image/*" placeholder="Upload profile picture" required>
+                    <i class="fas fa-camera"></i>
+                </div>
+
+                <button type="submit" name="signup-button" class="signup-btn">Signup</button>
+
+                <p style="margin-top:3px;"><a class="instead" href="{{url_for('auth.tutor_signup')}}">Sign Up as a Tutor Instead</a></p>
+                <p style="margin-top:3px;"><a class="instead" href="{{url_for('auth.student_login')}}">Login</a></p>
+
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
