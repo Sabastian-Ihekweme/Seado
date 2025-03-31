@@ -13,35 +13,35 @@ def tutor_dashboard():
 
 @views.route('/tutor-details')
 def tutor_details():
-    return "<h2>Tutor Details</h2>"
+    return render_template("tutor/tutor-details.html")
 
 @views.route('/tutor-bookings')
 def tutor_bookings():
-    return "<h2>Tutor Bookings</h2>"
+    return render_template("tutor/tutor-bookings.html")
 
 @views.route('/tutor-make-post')
 def tutor_make_post():
-    return "<h2>Post</h2>"
+    return render_template("tutor/tutor-make-post.html")
 
 @views.route('/tutor-chat')
 def tutor_chat():
-    return "<h2>Tutor Chat</h2>"
+    return render_template("tutor/tutor-chat.html")
 
 @views.route('/tutor-live-session')
 def tutor_live_session():
-    return "<h2>Tutor Live Session</h2>"
+     return render_template("tutor/tutor-live-session.html")
 
 @views.route('/tutor-recent-chats')
 def tutor_recent_chats():
-    return "<h2>Tutor Recent Chats</h2>"
+    return render_template("tutor/tutor-recent-chats.html")
 
 @views.route('/tutor-view-post')
 def tutor_view_post():
-    return "<h2>Tutor View Post</h2>"
+    return render_template("tutor/tutor-view-post.html")
 
 @views.route('/tutor-view-student')
 def tutor_view_student():
-    return "<h2>Tutor View Student</h2>"
+    return render_template("tutor/tutor-view-student.html")
 
 
 

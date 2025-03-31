@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, current_app
 from .models import Tutor, Student, Post
 from .models import db
-from flask_login import login_user, LoginManager
+from flask_login import login_user, LoginManager, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from Website import allowed_file
@@ -166,7 +166,9 @@ def student_login():
 
 @auth.route('/tutor-logout')
 def tutor_logout():
-    return "<h2>Tutor logout</h2>"
+    logout_user()
+
+    return redirect(url_for('auth.tutor_login'))
 
 @auth.route('/student-logout')
 def student_logout():

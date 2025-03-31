@@ -22,12 +22,12 @@
 
             <nav>
                 <ul>
-                    <li><i style="width:5%;" class="icon-dashboard"></i> Dashboard</li>
-                    <li><i class="icon-details"></i> My Details</li>
-                    <li><i class="icon-post"></i> Make A Post</li>
-                    <li><i class="icon-bookings"></i> View Bookings</li>
-                    <li><i class="icon-whiteboard"></i> Whiteboard</li>
-                    <li><i class="icon-chat"></i> Chat</li>
+                    <a href="{{ url_for('views.tutor_dashboard') }}"><li><i style="width:5%;" class="icon-dashboard"></i> Dashboard</li></a>
+                    <a href="{{ url_for('views.tutor_details') }}"><li><i class="icon-details"></i> My Details</li></a>
+                    <a href="{{ url_for('views.tutor_make_post') }}"><li><i class="icon-post"></i> Make A Post</li></a>
+                    <a href="{{ url_for('views.tutor_bookings') }}"><li><i class="icon-bookings"></i> View Bookings</li></a>
+                    <a href="{{ url_for('views.tutor_live_session') }}"><li><i class="icon-whiteboard"></i> Whiteboard</li></a>
+                    <a href="{{ url_for('views.tutor_recent_chats') }}"><li><i class="icon-chat"></i> Chat</li></a>
                 </ul>
             </nav>
         </div>
@@ -41,7 +41,7 @@
             </div>
 
             <div class="logout-button">
-                <button class="logout">Logout</button>
+                <a href="{{ url_for('auth.tutor_logout') }}"><button class="logout">Logout</button></a>
             </div>
             </div>
 
