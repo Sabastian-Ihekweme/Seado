@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutor Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}">
+    <script src="{{ url_for('static', filename='script/script.js') }}"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <div class="flash-container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash-message {{ category }}">
+                    {{ message|safe }}  <!-- This ensures HTML inside the flash message is rendered -->
+                    <button onclick="this.parentElement.style.display='none'">×</button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    </div>
+
+
+    <div class="container">
+        <div class="form-box">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='icons/seado-logo.png') }}" alt="Seado Logo">
+            </div>
+            <h2>Student Login</h2>
+
+
+            <form action="{{ url_for('auth.student_login') }}" method="POST">
+                
+
+
+                <div class="input-icon">
+                    <input type="email" name="email" placeholder="Gmail" required>
+                    <i class="fas fa-envelope"></i>
+                </div>
+
+                <div class="input-icon">
+                    <input type="password" name="password" placeholder="Password" id="password" required>
+                    <i class="fas fa-eye toggle-password" onclick="togglePassword('password')"></i>
+                </div>
+
+                <button type="submit" name="signup-button" class="signup-btn">Login</button>
+
+                <p style="margin-top:3px;"><a class="instead" href="{{url_for('auth.tutor_login')}}">Login as a Tutor Instead</a></p>
+                <p style="margin-top:3px;"><a class="instead" href="{{url_for('auth.student_signup')}}">Signup</a></p>
+
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

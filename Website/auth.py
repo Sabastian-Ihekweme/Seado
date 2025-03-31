@@ -1,12 +1,15 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, current_app
 from .models import Tutor, Student, Post
-from . import db
-from werkzeug.security import generate_password_hash
+from .models import db
+from flask_login import login_user, LoginManager
+from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from Website import allowed_file
 import os
 
 auth = Blueprint('auth', __name__)
+
+
 
 @auth.route('/tutor-signup', methods=['GET', 'POST'])
 def tutor_signup():
@@ -60,11 +63,28 @@ def tutor_signup():
 
     return render_template("tutor/tutor-signup.html")
 
-@auth.route('/tutor-login')
-def tutor_login():
-    return "<h2>Tutor login</h2>"
 
-@auth.route('/',  methods=['GET', 'POST'])
+@auth.route('/', methods=['GET', 'POST'])
+def tutor_login():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
+
+        tutor = Tutor.query.filter_by(email=email).first()
+
+        if tutor and tutor.password:
+            if check_password_hash(tutor.password, password):
+                login_user(tutor)
+                return redirect(url_for('views.tutor_dashboard'))
+                flash("Login successful!", "success")
+            else:
+                flash("Incorrect password. Please try again.", category="error")
+        else: 
+            flash("Email not found. Please try again", category="error")
+
+    return render_template('tutor/tutor-login.html')
+
+@auth.route('/student-signup',  methods=['GET', 'POST'])
 def student_signup():
     if request.method == 'POST':
         firstName = request.form.get('firstName')
@@ -118,9 +138,31 @@ def student_signup():
     return render_template("student/student-signup.html")
 
 
-@auth.route('/student-login')
+@auth.route('/student-login', methods=['GET', 'POST'])
 def student_login():
-    return "<h2>Student login</h2>"
+        
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
+        
+        
+        student = Student.query.filter_by(email=email).first()
+
+
+
+        if student and student.password:
+            if check_password_hash(student.password, password):
+                login_user(student)
+                flash("Login successful!", "success")
+                return redirect(url_for('views.student_dashboard'))
+            else:
+                flash("Incorrect password. Please try again.", category="error")
+        else: 
+            flash("Email not found. Please try again", category="error")
+
+
+    return render_template('student/student-login.html')
+
 
 @auth.route('/tutor-logout')
 def tutor_logout():

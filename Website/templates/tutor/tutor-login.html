@@ -24,6 +24,36 @@
     </div>
 
 
+    <div class="container">
+        <div class="form-box">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='icons/seado-logo.png') }}" alt="Seado Logo">
+            </div>
+            <h2>Tutor Login</h2>
+
+
+            <form action="{{ url_for('auth.tutor_login') }}" method="POST">
+                
+
+
+                <div class="input-icon">
+                    <input type="email" name="email" placeholder="Gmail" required>
+                    <i class="fas fa-envelope"></i>
+                </div>
+
+                <div class="input-icon">
+                    <input type="password" name="password" placeholder="Password" id="password" required>
+                    <i class="fas fa-eye toggle-password" onclick="togglePassword('password')"></i>
+                </div>
+
+                <button type="submit" name="signup-button" class="signup-btn">Login</button>
+
+                <p style="margin-top:3px;"><a class="instead" href="{{url_for('auth.student_login')}}">Login as a Student Instead</a></p>
+                <p style="margin-top:3px;"><a class="instead" href="{{url_for('auth.tutor_signup')}}">Signup</a></p>
+
+            </form>
+        </div>
+    </div>
 
 </body>
 </html>

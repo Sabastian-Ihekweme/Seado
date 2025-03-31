@@ -1,7 +1,7 @@
 from . import db
 from flask_login import UserMixin
 from sqlalchemy.sql import func
-from datetime import datetime
+from datetime import datetime 
 
 
 
@@ -44,3 +44,5 @@ class Post(db.Model):
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
     tutor = db.relationship('Tutor', backref=db.backref('posts', lazy=True))
+
+
