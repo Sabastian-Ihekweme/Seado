@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutor Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/dashboard-style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <script src="{{ url_for('static', filename='scripts/script.js') }}"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.jss" crossorigin="anonymous"></script>
+</head>
+<body>
+   
+    <div class="container">
+
+        <div class="side-pane">
+            <div class="seado">
+                <img class="seado-logo" src="{{ url_for('static', filename='icons/seado-logo.png') }}">
+            </div>
+
+            <nav>
+                <ul>
+                    <li><i style="width:5%;" class="icon-dashboard"></i> Dashboard</li>
+                    <li><i class="icon-details"></i> My Details</li>
+                    <li><i class="icon-post"></i> Make A Post</li>
+                    <li><i class="icon-bookings"></i> View Bookings</li>
+                    <li><i class="icon-whiteboard"></i> Whiteboard</li>
+                    <li><i class="icon-chat"></i> Chat</li>
+                </ul>
+            </nav>
+        </div>
+
+
+        <div class="profile-header">
+
+            <div class="top">
+            <div class="live-time" id="live-time">
+                Time
+            </div>
+
+            <div class="logout-button">
+                <button class="logout">Logout</button>
+            </div>
+            </div>
+
+        <div class="tutor-information">
+            <div class="profile-picture-div">
+                <img class="profile-picture" src="">
+            </div>
+
+
+                <p class="tutor-name">Drusilla Doom</p>
+                <p class="course">Software Engineering</p>
+                <p class="rating">5.0</p>
+            </div>
+        </div>
+
+        <hr/>
+
+
+        <div class="tutor-posts">
+
+            <p class="your-posts">Your Posts:</p>
+
+            <div class="post-list">
+                <div class="scrollable div">
+                <ul>
+                    <div class="post">
+                        <div class="thumbnail">
+                            <img class="post-thumbnail" src=""/>
+                        </div>
+                       <div class="post-name">Post 1</div>
+                       <div class="post-author">Posted by You</div>
+
+                       <div class="post-type">PDF</div>
+                        <div class="post-date">3/31/2025</div>
+                    </div>
+
+                    <div class="post">
+                        <div class="thumbnail">
+                            <img class="post-thumbnail" src=""/>
+                        </div>
+                        <div class="post-name">Post 2</div>
+                        <div class="post-author">Posted by You</div>
+ 
+                        <div class="post-type">Video</div>
+                         <div class="post-date">3/31/2025</div>
+                    </div>
+
+                    <div class="post">
+                        <div class="thumbnail">
+                            <img class="post-thumbnail" src=""/>
+                        </div>
+                        <div class="post-name">Post 3</div>
+                        <div class="post-author">Posted by You</div>
+ 
+                        <div class="post-type">Image</div>
+                        <div class="post-date">3/31/2025</div>
+                    </div>
+        
+                    </div>
+                </ul>
+            </div>
+        
+        </div>
+
+    </div>
+
+</body>
+</html>

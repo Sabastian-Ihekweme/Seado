@@ -1,12 +1,15 @@
 from flask import Blueprint, render_template
+from flask_login import login_required, current_user
 
 views = Blueprint('views', __name__)
 
 #tutor views
 
 @views.route('/tutor-dashboard')
+@login_required
 def tutor_dashboard():
-    return "<h2>Tutor Dashboard</h2>"
+
+    return render_template("tutor/tutor-dashboard.html")
 
 @views.route('/tutor-details')
 def tutor_details():
