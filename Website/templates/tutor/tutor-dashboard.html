@@ -47,12 +47,12 @@
 
         <div class="tutor-information">
             <div class="profile-picture-div">
-                <img class="profile-picture" src="">
+                <img class="profile-picture" src="{{ url_for('static', filename='uploads/profile-pics/' + (tutor.profilePicture if tutor.profilePicture else 'default.jpg'))}}">
             </div>
 
 
-                <p class="tutor-name">Drusilla Doom</p>
-                <p class="course">Software Engineering</p>
+                <p class="tutor-name">{{ tutor.firstName }} {{ tutor.lastName }}</p>
+                <p class="course">{{ tutor.course }}</p>
                 <p class="rating">5.0</p>
             </div>
         </div>

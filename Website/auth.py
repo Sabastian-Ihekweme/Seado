@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, current_app
 from .models import Tutor, Student, Post
 from .models import db
-from flask_login import login_user, LoginManager, logout_user
+from flask_login import login_user, LoginManager, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from Website import allowed_file
@@ -24,12 +24,13 @@ def tutor_signup():
 
         #profile picture handling
         profilePicture = request.files.get('profilePicture')
-        file_path = None
+        filename = None  # Default is None
 
         if profilePicture and allowed_file(profilePicture.filename):
             filename = secure_filename(profilePicture.filename)
-            file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
-            profilePicture.save(file_path)
+            upload_folder = current_app.config['UPLOAD_FOLDER']
+            profile_pic_path = os.path.join(upload_folder, filename)
+            profilePicture.save(profile_pic_path)
             
 
         existing_tutor = Tutor.query.filter_by(email=email).first()
@@ -51,7 +52,7 @@ def tutor_signup():
                 course = course,
                 email = email,
                 password = hashedPassword,
-                profilePicture = file_path
+                profilePicture = filename if filename else "default.jpg"
             )
 
             db.session.add(new_tutor)
@@ -59,9 +60,9 @@ def tutor_signup():
 
 
             flash(f'Account created successfully! Please <a class="flash-link" href="{url_for("auth.tutor_login")}">log in</a>.', "success")
-           
+    
+    return  render_template('tutor/tutor-signup.html')
 
-    return render_template("tutor/tutor-signup.html")
 
 
 @auth.route('/', methods=['GET', 'POST'])

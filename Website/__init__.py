@@ -6,7 +6,7 @@ from werkzeug.utils import secure_filename
 from flask import current_app
 import os 
 
-UPLOAD_FOLDER = os.path.join(os.getcwd(), 'static', 'uploads', 'profile-pics')
+UPLOAD_FOLDER = os.path.join(os.getcwd(), 'static/uploads/profile-pics')
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
     print("Created upload folder:", UPLOAD_FOLDER)
@@ -55,6 +55,9 @@ def create_app():
 
 
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+    def allowed_file(filename):
+        return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
     from .models import Tutor
 
