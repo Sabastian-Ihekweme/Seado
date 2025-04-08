@@ -1,5 +1,7 @@
-from flask import Blueprint, render_template, redirect, url_for
+from flask import Blueprint, render_template, redirect, url_for,request, flash
 from flask_login import login_required, current_user
+from .models import Tutor, Student
+from .models import db
 
 views = Blueprint('views', __name__)
 
@@ -11,9 +13,20 @@ def tutor_dashboard():
 
     return render_template("tutor/tutor-dashboard.html")
 
-@views.route('/tutor-details')
+@views.route('/tutor-details', methods=['GET', 'POST'])
+@login_required
 def tutor_details():
-    return render_template("tutor/tutor-details.html")
+        if request.method == 'POST':
+            aboutMe = request.form.get('tutor-about-me').strip()
+
+            tutor = current_user 
+
+            tutor.aboutMe = aboutMe
+
+        db.session.commit()
+        flash('About Me updated successfully!', category="success")
+
+        return render_template("tutor/tutor-details.html")
 
 @views.route('/tutor-bookings')
 def tutor_bookings():
@@ -57,7 +70,10 @@ def student_dashboard():
 
 @views.route('/student-details')
 def student_details():
-    return "<h2>Student Profile</h2>"
+
+        
+
+    return "<h2>Student Details</h2>"
 
 @views.route('/student-view-bookings')
 def student_view_bookings():

@@ -45,3 +45,18 @@ function scrollRight() {
     document.getElementById("scrollable").scrollBy({ left: 100, behavior: "smooth" });
 }
 
+
+document.getElementById('editBtn').addEvenetListener('click', function() {
+
+    const fields = document.querySelectorAll('#tutor-name, #tutor-qualification #tutor-course');
+    fields.forEach(field => {
+        field.readOnly = !field.readOnly;
+        field.classList.toggle('readonly');
+        field.classList.toggle('editable');
+    });
+
+    this.style.display = 'none';
+    document.getElementById('saveBtn').style.display = 'inline-block';
+
+});
+

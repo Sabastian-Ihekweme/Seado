@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/dashboard-style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/details-style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <script src="{{ url_for('static', filename='scripts/script.js') }}"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.jss" crossorigin="anonymous"></script>
+</head>
+<body>
+   
+    <div class="container">
+
+        <div class="side-pane">
+            <div class="seado">
+                <img class="seado-logo" src="{{ url_for('static', filename='icons/seado-logo.png') }}">
+            </div>
+
+            <nav>
+                <ul>
+                    <a href="{{ url_for('views.tutor_dashboard') }}"><li><i style="width:5%;" class="icon-dashboard"></i> Dashboard</li></a>
+                    <a href="{{ url_for('views.tutor_details') }}"><li><i class="icon-details"></i> My Details</li></a>
+                    <a href="{{ url_for('views.tutor_make_post') }}"><li><i class="icon-post"></i> Make A Post</li></a>
+                    <a href="{{ url_for('views.tutor_bookings') }}"><li><i class="icon-bookings"></i> View Bookings</li></a>
+                    <a href="{{ url_for('views.tutor_live_session') }}"><li><i class="icon-whiteboard"></i> Whiteboard</li></a>
+                    <a href="{{ url_for('views.tutor_recent_chats') }}"><li><i class="icon-chat"></i> Chat</li></a>
+                </ul>
+            </nav>
+        </div>
+
+
+    </div>
+
+    <div class="profile-header">
+
+        <div class="top">
+        <div class="live-time" id="live-time">
+            Time
+        </div>
+
+        <div class="logout-button">
+            <a href="{{ url_for('auth.tutor_logout') }}"><button class="logout">Logout</button></a>
+        </div>
+        </div>
+    </div>
+
+
+    <div class="tutor-info">
+    <form action="{{ url_for('views.tutor_details') }}" method="POST"></form>
+        <div class="tutor-info-line">Name: <input type="text" class="tutor-name-input" id="tutor-name" name="tutor-name" value="{{ tutor.firstName }} {{ tutor.lastName }}" readonly></div>
+        <div class="tutor-info-line">Qualification: <input type="text" class="tutor-qualification" id="tutor-qualification" name="tutor-qualification" value="{{ tutor.qualification }}" readonly></div>
+        <div class="tutor-info-line">Course: <input type="text" class="tutor-course" id="tutor-course" name="tutor-course" value="{{ tutor.course }}" readonly></div>
+
+        <div class="tutor-info-line">About Me(Optional): <textarea class="tutor-about-me" id="tutor-about-me" name="tutor-about-me"></textarea> 
+            <button type="submit" name="saveBtn" id="saveBtn" class="save-button" value="{{ tutor.aboutMe if tutor.aboutMe else ''}}">Save</button>
+        </div>
+
+
+    </form>
+    </div>
+
+
+    <script>
+
+    </script>
+</body>
+</html>
