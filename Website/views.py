@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, redirect, url_for
 from flask_login import login_required, current_user
 
 views = Blueprint('views', __name__)
@@ -49,11 +49,19 @@ def tutor_view_student():
 
 @views.route('/student-dashboard')
 def student_dashboard():
-    return "<h2>Student Dashboard</h2>"
+    if not current_user.is_authenticated:
+        return redirect(url_for('auth.student_login'))
+
+    return render_template("student/student-dashboard.html", student=current_user)
+
 
 @views.route('/student-details')
 def student_details():
     return "<h2>Student Profile</h2>"
+
+@views.route('/student-view-bookings')
+def student_view_bookings():
+    return "<h2>Student View Bookings</h2>"
 
 @views.route('/student-chat')
 def student_chat():

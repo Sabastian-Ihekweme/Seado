@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/dashboard-style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <script src="{{ url_for('static', filename='scripts/script.js') }}"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.jss" crossorigin="anonymous"></script>
+</head>
+<body>
+   
+    <div class="container">
+
+        <div class="side-pane">
+            <div class="seado">
+                <img class="seado-logo" src="{{ url_for('static', filename='icons/seado-logo.png') }}">
+            </div>
+
+            <nav>
+                <ul>
+                    <a href="{{ url_for('views.student_dashboard') }}"><li><i style="width:5%;" class="icon-dashboard"></i> Dashboard</li></a>
+                    <a href="{{ url_for('views.student_details') }}"><li><i class="icon-details"></i> My Details</li></a>
+                    <a href="{{ url_for('views.student_view_bookings') }}"><li><i class="icon-post"></i> View Bookings</li></a>
+                    <a href="{{ url_for('views.student_recent_chats') }}"><li><i class="icon-whiteboard"></i> Chat</li></a>
+                    <a href="{{ url_for('views.student_invitations') }}"><li><i class="icon-chat"></i> Invitations</li></a>
+                </ul>
+            </nav>
+        </div>
+
+
+        <div class="profile-header">
+
+            <div class="top">
+            <div class="live-time" id="live-time">
+                Time
+            </div>
+
+            <div class="logout-button">
+                <a href="{{ url_for('auth.student_logout') }}"><button class="logout">Logout</button></a>
+            </div>
+            </div>
+
+        <div class="tutor-information">
+            <div class="profile-picture-div">
+                <img class="profile-picture" src="{{ url_for('static', filename='uploads/profile-pics/' + (tutor.profilePicture if tutor.profilePicture else 'default.jpg'))}}">
+            </div>
+
+
+                <p class="tutor-name">Welcome, {{ student.firstName }} {{ student.lastName }}</p>
+    
+            <form class="search-form">
+                <p class="search-engine"><input type="text" name="search" class="search-materials" id="search" placeholder="Search Tutors/Materials"></p>
+            </form>
+            </div>
+        </div>
+
+        <hr/>
+
+    <div class="tutor-posts">
+
+        <div class="search-results">
+            <div class="tutors">
+                <p>Tutors related to your search:</p>
+                <ul>
+                    
+                    <a href="" class="tutor-profile"><li class="tutor-profile">
+                    <div class="tutor-profile">
+                        <img src="" class="tutor-profile-picture" name="tutor-profile-picture" id="tutor-profile-picture" alt="tutor"/>
+                        <div class="tutor-name">Tutor 1</div>
+                        <div class="tutor-course">Aviation Management</div>
+                    </div>
+                    </a></li>
+
+
+                    <a href="" class="tutor-profile"><li class="tutor-profile">
+                    <div class="tutor-profile">
+        
+                        <img src="" class="tutor-profile-picture" name="tutor-profile-picture" id="tutor-profile-picture" alt="tutor"/>
+                        <div class="tutor-name">Tutor 2</div>
+                        <div class="tutor-course">Software Engineering</div>
+                    </div>
+                    </a></li>
+
+
+                    <a href="" class="tutor-profile"><li class="tutor-profile">
+                    <div class="tutor-profile">
+        
+                        <img src="" class="tutor-profile-picture" name="tutor-profile-picture" id="tutor-profile-picture" alt="tutor"/>
+                        <div class="tutor-name">Tutor 3</div>
+                        <div class="tutor-course">Computer Science</div>
+                    </div>
+                    </a></li>
+
+
+                    <a href="" class="tutor-profile"><li class="tutor-profile">
+                    <div class="tutor-profile">
+        
+                        <img src="" class="tutor-profile-picture" name="tutor-profile-picture" id="tutor-profile-picture" alt="tutor"/>
+                        <div class="tutor-name">Tutor 4</div>
+                        <div class="tutor-course">Mathematics</div>
+                    </div>
+                    </a></li>
+                </ul>
+
+              
+            </div>
+
+
+
+
+            <div class="materials">
+                <p>Materials related to your search:</p>
+                <ul>
+                    
+                    <a href="" class="tutor-materials"><li class="tutor-materials">
+                    <div class="tutor-matrials">
+                        <img src="" class="material-thumbnail" name="material-thumbnail" id="material-thumbnail" alt="material"/>
+                        <div class="material-name">Material 1</div>
+                        <div class="material-tutor">Posted By Tutor 1</div>
+                        <div class="material-date">4/8/2025</div>
+                        <div class="material-type">PDF</div>
+                    </div>
+                    </a></li>
+
+
+                        <a href="" class="tutor-materials"><li class="tutor-materials">
+                            <div class="tutor-matrials">
+                                <img src="" class="material-thumbnail" name="material-thumbnail" id="material-thumbnail" alt="material"/>
+                                <div class="material-name">Material 2</div>
+                                <div class="material-tutor">Posted By Tutor 3</div>
+                                <div class="material-date">4/8/2025</div>
+                                <div class="material-type">Video</div>
+                            </div>
+                            </a></li>                        
+
+                            <a href="" class="tutor-materials"><li class="tutor-materials">
+                                <div class="tutor-matrials">
+                                    <img src="" class="material-thumbnail" name="material-thumbnail" id="material-thumbnail" alt="material"/>
+                                    <div class="material-name">Material 3</div>
+                                    <div class="material-tutor">Posted By Tutor 4</div>
+                                    <div class="material-date">4/8/2025</div>
+                                    <div class="material-type">Image</div>
+                                </div>
+                                </a></li>
+              
+            </div>
+        </div>
+
+    </div>
+      
+    </div>
+
+</body>
+</html>

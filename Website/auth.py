@@ -173,4 +173,7 @@ def tutor_logout():
 
 @auth.route('/student-logout')
 def student_logout():
-    return "<h2>Student logout</h2>"
+    logout_user()
+
+
+    return redirect(url_for('auth.student_login'))

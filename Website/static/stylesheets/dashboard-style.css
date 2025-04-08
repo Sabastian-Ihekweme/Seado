@@ -56,6 +56,7 @@ li:active {
 
   .profile-header {
     margin-left: 22%;
+    align-items: center;
   }
 
   .top {
@@ -90,6 +91,7 @@ li:active {
 
   .tutor-information {
     text-align: center;
+    justify-content: center;
   }
 
 
@@ -199,3 +201,91 @@ a {
     text-decoration: none;
     color: white;
 }
+
+
+
+.search-materials {
+  justify-content: center;
+  margin-top: 50px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  font-weight: 700;
+  max-height: 16px;
+  width: 95%;
+  max-width: 1000px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 10px;
+  outline: none;
+  border-radius: 40px;
+  border: 2px solid grey;
+  font-size: 16px;
+  font-weight: 700;
+  display: flex;
+}
+
+.search-form {
+  margin-top: 10px;
+  justify-content: center;
+}
+
+.search-results {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+
+.tutor-profile, .tutor-materials {
+  justify-content: center;
+}
+
+.tutor-profile-picture {
+  margin-left: 35px;
+  border: solid 2px black;
+  width: 150px;
+  height: 150px;
+  border-radius: 100px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.tutor-profile, .tutor-materials {
+  margin-top: 30px;
+  background-color: white;
+  color: black;
+  box-shadow: none;
+}
+
+.material-thumbnail {
+  padding-right: 10px;
+  border: solid 2px black;
+  width: 200px;
+  height: 200px;
+  border-radius: 5px;
+  object-position: center;
+  display: block;
+}
+
+.tutors {
+  margin-right: 40px;
+  box-shadow: 2px 2px 2px 2px rgba(250, 246, 246, 246);
+  border-radius: 5px;
+  padding: 30px;
+}
+
+.materials {
+  margin-left: 40px;
+  box-shadow: 2px 2px 2px 2px rgba(250, 246, 246, 246);
+  border-radius: 5px;
+  padding: 30px;
+}
+
+.material-name {
+  font-size: 21px;
+  font-weight: bold;
+  margin-top: 3px;
+}
+
+
