@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Invitations</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/invitations-style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/dashboard-style.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -22,11 +22,11 @@
 
             <nav>
                 <ul>
-                    <a href="{{ url_for('views.student_dashboard') }}"><li><i style="width:5%;" class="icon-dashboard"></i> Dashboard</li></a>
-                    <a href="{{ url_for('views.student_details') }}"><li><i class="icon-details"></i> My Details</li></a>
-                    <a href="{{ url_for('views.student_view_bookings') }}"><li><i class="icon-post"></i> View Bookings</li></a>
-                    <a href="{{ url_for('views.student_recent_chats') }}"><li><i class="icon-whiteboard"></i> Chat</li></a>
-                    <a href="{{ url_for('views.student_invitations') }}"><li><i class="icon-chat"></i> Invitations</li></a>
+                    <li><a href="{{ url_for('views.student_dashboard') }}"><i class="fas fa-home"></i> Dashboard</a></li>
+                    <li><a href="{{ url_for('views.student_details') }}"><i class="fas fa-user"></i> My Details</a></li>
+                    <li><a href="{{ url_for('views.student_view_bookings') }}"><i class="fas fa-calendar"></i> View Bookings</a></li>
+                    <li><a href="{{ url_for('views.student_recent_chats') }}"><i class="fas fa-comments"></i> Chat</a></li>
+                    <li class="active"><a href="{{ url_for('views.student_invitations') }}"><i class="fas fa-envelope"></i> Invitations</a></li>
                 </ul>
             </nav>
         </div>
@@ -74,37 +74,5 @@
             </div>
         </div>
     </div>
-
-    <script>
-        // Update live time
-        function updateTime() {
-            const now = new Date();
-            document.getElementById('live-time').textContent = now.toLocaleTimeString();
-        }
-        setInterval(updateTime, 1000);
-        updateTime();
-
-        // Handle invitation actions
-        document.querySelectorAll('.btn-accept').forEach(button => {
-            button.addEventListener('click', function() {
-                const card = this.closest('.invitation-card');
-                card.innerHTML = `
-                    <div class="invitation-response">
-                        <i class="fas fa-check-circle"></i>
-                        <p>You've accepted this invitation!</p>
-                    </div>
-                `;
-                card.style.backgroundColor = '#e8f5e9';
-            });
-        });
-
-        document.querySelectorAll('.btn-decline').forEach(button => {
-            button.addEventListener('click', function() {
-                const card = this.closest('.invitation-card');
-                card.style.opacity = '0';
-                setTimeout(() => card.remove(), 300);
-            });
-        });
-    </script>
 </body>
 </html>
