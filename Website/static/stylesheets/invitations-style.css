@@ -1,0 +1,85 @@
+/* Invitations Section */
+.invitations-content {
+    margin-left: 22%;
+    padding: 20px;
+    max-width: 800px;
+}
+
+.invitations-content h1 {
+    color: rgb(20, 95, 156);
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.invitation-list {
+    margin-top: 20px;
+}
+
+.invitation-card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.invitation-card p {
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: #333;
+}
+
+.invitation-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.btn-accept, .btn-decline {
+    padding: 10px 25px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+}
+
+.btn-accept {
+    background-color: rgb(20, 156, 104);
+    color: white;
+}
+
+.btn-decline {
+    background-color: rgb(160, 11, 11);
+    color: white;
+}
+
+.btn-accept:hover {
+    background-color: rgb(16, 124, 83);
+}
+
+.btn-decline:hover {
+    background-color: rgb(120, 8, 8);
+}
+
+.invitation-response {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: rgb(20, 156, 104);
+    font-weight: 600;
+}
+
+.invitation-response i {
+    font-size: 24px;
+}
+
+/* Active nav item */
+.side-pane nav ul li.active {
+    background-color: rgb(16, 75, 124);
+    box-shadow: 0 2px 4px rgba(14, 13, 13, 0.938);
+}
