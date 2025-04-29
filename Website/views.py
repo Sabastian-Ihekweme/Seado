@@ -85,7 +85,7 @@ def student_chat():
 
 @views.route('/student-invitations')
 def student_invitations():
-    return "<h2>Student Invitations</h2>"
+    return render_template("student/student-invitations.html", student=current_user)
 
 @views.route('/student-live-session')
 def student_live_session():
