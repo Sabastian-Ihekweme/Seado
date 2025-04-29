@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block title %}Student Details{% endblock %}
+
+{% block content %}
+<div class="container">
+    <a href="{{ url_for('views.tutor_bookings') }}" class="back-link">← Back to Bookings</a>
+    
+    <div class="time-display">Time: {{ current_time }}</div>
+    
+    <h2>View Student</h2>
+    
+    <div class="student-info">
+        <div class="info-row">
+            <span class="info-label">Name:</span>
+            <span class="info-value">{{ student.name }}</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Level of Study:</span>
+            <span class="info-value">{{ student.study_level }}</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Year:</span>
+            <span class="info-value">{{ student.year }}</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Age:</span>
+            <span class="info-value">{{ student.age }}</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">About ({{ student.name }}):</span>
+            <p class="info-value">{{ student.about }}</p>
+        </div>
+    </div>
+    
+    <h3>Account Bookings</h3>
+    {% if student.bookings %}
+        <div class="bookings-list">
+            {% for booking in student.bookings %}
+                <div class="booking-item">
+                    <span class="booking-date">{{ booking.date }}</span>
+                    <span class="booking-time">{{ booking.time }}</span>
+                    <span class="booking-status">{{ booking.status }}</span>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="no-bookings">No bookings found.</p>
+    {% endif %}
+</div>
+
+<style>
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+    }
+    .back-link {
+        display: inline-block;
+        margin-bottom: 20px;
+        text-decoration: none;
+        color: #0066cc;
+    }
+    .time-display {
+        margin-bottom: 20px;
+        color: #666;
+    }
+    .student-info {
+        margin-bottom: 30px;
+    }
+    .info-row {
+        margin-bottom: 10px;
+        display: flex;
+    }
+    .info-label {
+        font-weight: bold;
+        width: 150px;
+    }
+    .bookings-list {
+        margin-top: 20px;
+    }
+    .booking-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        border-bottom: 1px solid #eee;
+    }
+    .no-bookings {
+        color: #666;
+        font-style: italic;
+    }
+</style>
+{% endblock %}
