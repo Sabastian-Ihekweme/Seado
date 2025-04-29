@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recent Chats</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/dashboard-style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <script src="{{ url_for('static', filename='scripts/script.js') }}"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Side Navigation -->
+        <div class="side-pane">
+            <div class="seado">
+                <img class="seado-logo" src="{{ url_for('static', filename='icons/seado-logo.png') }}">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('views.student_dashboard') }}"><i class="fas fa-home"></i> Dashboard</a></li>
+                    <li><a href="{{ url_for('views.student_details') }}"><i class="fas fa-user"></i> My Details</a></li>
+                    <li><a href="{{ url_for('views.student_view_bookings') }}"><i class="fas fa-calendar"></i> View Bookings</a></li>
+                    <li class="active"><a href="{{ url_for('views.student_recent_chats') }}"><i class="fas fa-comments"></i> Chat</a></li>
+                    <li><a href="{{ url_for('views.student_invitations') }}"><i class="fas fa-envelope"></i> Invitations</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="profile-header">
+            <div class="top">
+                <div class="live-time" id="live-time">
+                    Time
+                </div>
+                <div class="logout-button">
+                    <a href="{{ url_for('auth.student_logout') }}"><button class="logout">Logout</button></a>
+                </div>
+            </div>
+            <div class="tutor-information">
+                <div class="profile-picture-div">
+                    <img class="profile-picture" src="{{ url_for('static', filename='uploads/profile-pics/' + (student.profilePicture if student.profilePicture else 'default.jpg'))}}">
+                </div>
+                <p class="tutor-name">{{ student.firstName }} {{ student.lastName }}</p>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- Recent Chats Section -->
+        <div class="chats-content">
+            <h1>Recent Chats</h1>
+            
+            <div class="chats-list">
+                <!-- Chat Item 1 -->
+                <div class="chat-card">
+                    <div class="chat-info">
+                        <div class="chat-tutor-name">Dr. Sarah Johnson</div>
+                        <div class="chat-subject">Mathematics Tutoring</div>
+                    </div>
+                    <button class="btn-enter-chat">
+                        <i class="fas fa-comment-dots"></i> Enter Chat
+                    </button>
+                </div>
+
+                <!-- Chat Item 2 -->
+                <div class="chat-card">
+                    <div class="chat-info">
+                        <div class="chat-tutor-name">Prof. Michael Chen</div>
+                        <div class="chat-subject">Computer Science Help</div>
+                    </div>
+                    <button class="btn-enter-chat">
+                        <i class="fas fa-comment-dots"></i> Enter Chat
+                    </button>
+                </div>
+
+                <!-- Chat Item 3 -->
+                <div class="chat-card">
+                    <div class="chat-info">
+                        <div class="chat-tutor-name">Ms. Emily Wilson</div>
+                        <div class="chat-subject">English Literature</div>
+                    </div>
+                    <button class="btn-enter-chat">
+                        <i class="fas fa-comment-dots"></i> Enter Chat
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
