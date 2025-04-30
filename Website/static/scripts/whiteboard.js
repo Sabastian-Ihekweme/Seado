@@ -4,7 +4,7 @@ const studentCount = document.getElementById('studentCount');
 
 // Connect to WebSocket server
 const socket = io();
-let isTeacher = true; // Assuming this is the teacher's view
+let isTeacher = true; // This is the teacher's view
 let sessionActive = true;
 let currentPaths = {};
 let isDrawing = false;
@@ -55,6 +55,7 @@ function startRemotePath(data) {
     const path = document.createElement('div');
     path.className = 'drawing-path';
     path.id = `path-${data.pathId}`;
+    path.style.backgroundColor = data.color || '#000000';
     whiteboard.appendChild(path);
     currentPaths[data.pathId] = path;
     addDotToPath(data.pathId, data.x, data.y);
@@ -75,6 +76,7 @@ function addDotToPath(pathId, x, y) {
         dot.className = 'drawing-dot';
         dot.style.left = x + 'px';
         dot.style.top = y + 'px';
+        dot.style.backgroundColor = path.style.backgroundColor;
         path.appendChild(dot);
     }
 }
@@ -106,7 +108,8 @@ function startDrawing(e) {
         action: 'start',
         pathId: currentPathId,
         x: x,
-        y: y
+        y: y,
+        color: '#000000' // Default black
     });
     
     startRemotePath({

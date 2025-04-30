@@ -1,3 +1,4 @@
+from flask import Blueprint, render_template, redirect, url_for,request, flash, current_app
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, current_user
@@ -5,6 +6,8 @@ from os import path
 from werkzeug.utils import secure_filename
 from flask import current_app
 import os 
+from .auth import auth
+from .views import views
 
 UPLOAD_FOLDER = os.path.join(os.getcwd(), 'static/uploads/profile-pics')
 if not os.path.exists(UPLOAD_FOLDER):
@@ -67,11 +70,6 @@ def create_app():
     return app
 
 
-
-
-
-
-
 def create_database(app):
     if not path.exists('Website/' + DB_NAME):
         with app.app_context():
@@ -79,7 +77,8 @@ def create_database(app):
         print('Database Created!')
 
 
-
-
-
-   
+def create_app():
+    app = Flask(__name__)
+    app.config['MATERIAL_UPLOAD_FOLDER'] = os.path.join(app.static_folder, 'uploads/materials')
+    os.makedirs(app.config['MATERIAL_UPLOAD_FOLDER'], exist_ok=True)
+    return app

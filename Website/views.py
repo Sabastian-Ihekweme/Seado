@@ -2,6 +2,11 @@ from flask import Blueprint, render_template, redirect, url_for,request, flash
 from flask_login import login_required, current_user
 from .models import Tutor, Student
 from .models import db
+from flask import current_app
+from .models import Material  
+import os
+from datetime import datetime
+from werkzeug.security import generate_password_hash
 
 views = Blueprint('views', __name__)
 
@@ -106,3 +111,50 @@ def student_view_materials():
 @views.route('/student-view-tutor')
 def student_view_tutor():
     return render_template("student/student-view-tutor.html", student=current_user)
+
+
+@views.route('/materials/<int:material_id>')
+def view_material(material_id):
+    if not current_user.is_authenticated:
+        return redirect(url_for('auth.tutor_login'))
+    
+    material = Material.query.get_or_404(material_id)
+    return render_template('tutor_view_post.html',
+                        material=material,
+                        current_time=datetime.now().strftime("%H:%M"))
+
+@views.route('/materials/<int:material_id>', methods=['DELETE'])
+def delete_material(material_id):
+    if not current_user.is_authenticated:
+        return {'success': False, 'message': 'Unauthorized'}, 401
+    
+    material = Material.query.get_or_404(material_id)
+    
+    try:
+        # Delete file
+        file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], material.filename)
+        if os.path.exists(file_path):
+            os.remove(file_path)
+        
+        # Delete record
+        db.session.delete(material)
+        db.session.commit()
+        
+        return {'success': True, 'redirect': url_for('views.tutor_dashboard')}
+    except Exception as e:
+        return {'success': False, 'message': str(e)}, 500
+
+
+student = Blueprint('student', __name__)
+
+@student.route('/view-student/<int:student_id>')
+@login_required
+def view_student(student_id):
+    student = Student.query.get(student_id)
+    if not student:
+        flash('Student not found', 'error')
+        return redirect(url_for('views.dashboard'))
+    
+    return render_template('view_student.html', 
+                         student=student,
+                         current_user=current_user)

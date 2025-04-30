@@ -28,7 +28,7 @@ class Student(db.Model, UserMixin):
     email = db.Column(db.String(150), unique=True, nullable=False)
     password = db.Column(db.String(150), nullable=False)
     profilePicture = db.Column(db.String(255), nullable=True)
-
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
 #Table for posts
 class Post(db.Model):
@@ -45,4 +45,13 @@ class Post(db.Model):
 
     tutor = db.relationship('Tutor', backref=db.backref('posts', lazy=True))
 
-
+#Table for material
+class Material(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    type = db.Column(db.String(20), nullable=False)  # 'video', 'pdf', etc.
+    filename = db.Column(db.String(100), nullable=False)
+    upload_date = db.Column(db.DateTime, default=datetime.utcnow)
+    tutor_id = db.Column(db.Integer, db.ForeignKey('tutor.id'))
+    
+    tutor = db.relationship('Tutor', backref=db.backref('materials', lazy=True))
