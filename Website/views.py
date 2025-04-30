@@ -105,4 +105,4 @@ def student_view_materials():
 
 @views.route('/student-view-tutor')
 def student_view_tutor():
-    return "<h2>Student View Tutor</h2>"
+    return render_template("student/student-view-tutor.html", student=current_user)
