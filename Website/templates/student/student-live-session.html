@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Whiteboard Session</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/student-live-session.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>You are in a Live Whiteboard Session with (Tutor Name)</h1>
+        </header>
+        <main>
+            <div class="whiteboard"></div>
+        </main>
+        <footer>
+            <button class="leave-btn">Leave</button>
+            <span class="student-count">3 Students</span>
+        </footer>
+    </div>
+
+    <script>
+        // Add any JavaScript functionality here (e.g., WebSocket integration)
+    </script>
+</body>
+</html>

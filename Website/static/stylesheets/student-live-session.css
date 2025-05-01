@@ -24,24 +24,24 @@ header h1 {
     margin-bottom: 2rem;
 }
 
-.profile-image img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin: 0 auto 2rem;
+.whiteboard {
+    height: 400px;
+    background: #eaeaea;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 2rem;
 }
 
-.details p {
-    margin: 0.5rem 0;
-    color: #555;
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
 }
 
-button {
-    display: block;
-    margin: 2rem auto;
-    padding: 1rem 2rem;
-    background: linear-gradient(to right, #6a5acd, #4169e1);
+.leave-btn {
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(to right, #ff6b6b, #ee5253);
     color: white;
     border: none;
     border-radius: 4px;
@@ -49,6 +49,11 @@ button {
     transition: transform 0.2s ease;
 }
 
-button:hover {
+.leave-btn:hover {
     transform: scale(1.05);
+}
+
+.student-count {
+    font-weight: bold;
+    color: #555;
 }
