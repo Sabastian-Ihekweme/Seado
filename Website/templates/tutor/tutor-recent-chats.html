@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recent Chats</title>
-    <link rel="stylesheet" href="tutor-recent-chats.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/dashboard-style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/tutor-recent-chats.css') }}">
 </head>
 <body>
     <div class="chat-container">
@@ -16,7 +17,7 @@
         <div class="chat-list">
             <div class="chat-item">
                 <div class="student-name">Student Name</div>
-                <button class="enter-chat">Enter Chat</button>
+                <a href="{{ url_for('views.tutor_chat') }}"><button class="enter-chat">Enter Chat</button></a>
             </div>
             
             <div class="chat-item">
