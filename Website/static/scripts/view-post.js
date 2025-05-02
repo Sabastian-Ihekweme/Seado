@@ -1,40 +1,29 @@
-function confirmDelete(materialId) {
-    if (confirm('Are you sure you want to permanently delete this material?')) {
-        // Show loading state
-        const preview = document.querySelector('.material-preview');
-        preview.classList.add('loading');
-        
-        fetch(`/materials/${materialId}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': '{{ csrf_token() }}'  // Add CSRF protection
+document.addEventListener('DOMContentLoaded', function() {
+    const deleteButton = document.getElementById('deleteButton');
+    
+    if (deleteButton) {
+        deleteButton.addEventListener('click', function() {
+            const materialId = this.getAttribute('data-material-id');
+            
+            if (confirm('Are you sure you want to delete this material?')) {
+                fetch(`/material/${materialId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.href = "/dashboard";
+                    } else {
+                        alert('Failed to delete material');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while deleting');
+                });
             }
-        })
-        .then(response => {
-            if (response.ok) {
-                // Show success message before redirect
-                alert('Material deleted successfully');
-                window.location.href = "{{ url_for('views.tutor_dashboard') }}";
-            } else {
-                preview.classList.remove('loading');
-                throw new Error('Delete failed');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Failed to delete material. Please try again.');
-            preview.classList.remove('loading');
         });
     }
-}
-
-// Add media player event listeners
-document.addEventListener('DOMContentLoaded', function() {
-    const videoPlayers = document.querySelectorAll('video');
-    videoPlayers.forEach(player => {
-        player.addEventListener('error', function() {
-            alert('Error loading video. Please check the file.');
-        });
-    });
 });

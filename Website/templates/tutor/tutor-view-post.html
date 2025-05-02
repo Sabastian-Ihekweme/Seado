@@ -1,45 +1,61 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Material - {{ material.name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tutor_view_post.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="material-container">
+        <div class="material-header">
+            <a href="{{ url_for('tutor-dashboard.html') }}" class="back-link">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+            </a>
+            <div class="time-display">
+                <span>Time: {{ current_time }}</span>
+            </div>
+        </div>
 
-{% block title %}View Material - {{ material.name }}{% endblock %}
+        <div class="material-content">
+            <h1 class="material-title">{{ material.name }}</h1>
+            <p class="uploader">Uploaded By {{ material.uploaded_by }}</p>
+            
+            <div class="material-details">
+                <div class="detail-row">
+                    <span class="detail-label">Type:</span>
+                    <span class="detail-value">{{ material.type }}</span>
+                    <button class="btn-delete" id="deleteButton" data-material-id="{{ material.id }}">
+                        <i class="fas fa-trash"></i> Delete File
+                    </button>
+                </div>
+                
+                <div class="detail-row">
+                    <span class="detail-label">Date Uploaded:</span>
+                    <span class="detail-value">{{ material.upload_date }}</span>
+                </div>
+            </div>
 
-{% block content %}
-<div class="material-container">
-    <div class="material-header">
-        <a href="{{ url_for('views.tutor_dashboard') }}" class="back-link">
-            <i class="fas fa-arrow-left"></i> Back to Dashboard
-        </a>
-        <div class="time-display">
-            <span>Time: {{ current_time }}</span>
+            <div class="material-preview">
+                {% if material.type == 'Video' %}
+                    <video controls class="media-player">
+                        <source src="{{ material.file_url }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                {% elif material.type == 'PDF' %}
+                    <iframe src="{{ material.file_url }}" class="pdf-viewer"></iframe>
+                {% else %}
+                    <div class="generic-file">
+                        <i class="fas fa-file-alt fa-5x"></i>
+                        <a href="{{ material.file_url }}" class="btn-download">Download File</a>
+                    </div>
+                {% endif %}
+            </div>
         </div>
     </div>
 
-    <div class="material-content">
-        <h1 class="material-title">{{ material.name }}</h1>
-        <p class="uploader">Uploaded By {{ material.uploaded_by }}</p>
-        
-        <div class="material-details">
-            <div class="detail-row">
-                <span class="detail-label">Type:</span>
-                <span class="detail-value">{{ material.type }}</span>
-                <button class="btn-delete" onclick="confirmDelete('{{ material.id }}')">
-                    <i class="fas fa-trash"></i> Delete File
-                </button>
-            </div>
-            
-            <div class="detail-row">
-                <span class="detail-label">Date Uploaded:</span>
-                <span class="detail-value">{{ material.upload_date }}</span>
-            </div>
-        </div>
-
-        <div class="material-preview">
-            {% if material.type == 'Video' %}
-                <video controls class="media-player">
-                    <source src="{{ material.file_url }}" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            {% elif material.type == 'PDF' %}
-                <iframe src="{{ material.file_url }}" class="pdf-viewer"></iframe>
-            {% else %}
-                <div class="generic-file">
-                    <i class="fas fa-file-alt fa
+    <script src="{{ url_for('static', filename='js/view-post.js') }}"></script>
+</body>
+</html>
