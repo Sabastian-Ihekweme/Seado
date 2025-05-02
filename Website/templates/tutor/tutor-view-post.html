@@ -1,8 +1,18 @@
-{% extends "base.html" %}
-
-{% block title %}View Material - {{ material.name }}{% endblock %}
-
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/tutor_view_post.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    {% block content %}{% endblock %}
+    <script src="{{ url_for('static', filename='scripts/view-post.js') }}"></script>
 <div class="material-container">
     <div class="material-header">
         <a href="{{ url_for('views.tutor_dashboard') }}" class="back-link">
@@ -51,3 +61,5 @@
 </div>
 <script src="{{ url_for('static', filename='scripts/view-post.js') }}"></script>
 {% endblock %}
+</body>
+</html>
