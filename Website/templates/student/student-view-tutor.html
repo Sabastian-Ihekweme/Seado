@@ -1,1 +1,32 @@
-/*ELVIS*/
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>View Tutor</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/student-view-tutor.css') }}">
+    </head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>View Tutor</h1>
+        </header>
+        <main>
+            <div class="profile-image">
+                <img src="{{ url_for('static', filename='icons/teacher-icon.png' + tutor.profile_image) }}" alt="Profile Image">
+            </div>
+            <div class="details">
+                <p><strong>Name:</strong></p>
+                <p><strong>Expertise:</strong></p>
+                <p><strong>Qualification:</strong></p>
+                <p><strong>Date of Birth:</strong></p>
+                <p><strong>Gender:</strong></p>
+                <p><strong>About: (Name)</strong></p>
+            </div>
+            <button onclick="handlebooking()">Book Live Session</button>
+        </main>
+    </div>
+</body>
+
+</html>

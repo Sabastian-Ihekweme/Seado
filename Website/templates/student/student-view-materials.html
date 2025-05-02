@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Material</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>View Material</h1>
+        </header>
+        <main>
+            <div class="material-preview">
+                <img src="{{ url_for('static', filename='icons/download.svg') }}" alt="Material Preview">
+            </div>
+            <div class="details">
+                <p><strong>Material Name</strong></p>
+                <p><strong>Uploaded By (Tutor Name)</strong></p>
+                <p><strong>Type:</strong> pdf</p>
+                <p><strong>Date Uploaded:</strong> 3/29/2025</p>
+            </div>
+            <button class="download-btn">
+                <img src="{{ url_for('static', filename='icons/download.svg') }}" alt="Download Icon">
+                Download File
+            </button>
+        </main>
+    </div>
+</body>
+</html>
