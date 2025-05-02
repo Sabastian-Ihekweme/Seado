@@ -43,7 +43,7 @@ def tutor_make_post():
 
 @views.route('/tutor-chat')
 def tutor_chat():
-    return render_template("tutor/tutor-chat.html")
+    return render_template("tutor/tutor-chat-ui.html")
 
 @views.route('/tutor-live-session')
 def tutor_live_session():
@@ -90,7 +90,7 @@ def student_chat():
 
 @views.route('/student-invitations')
 def student_invitations():
-    return render_template("student/student-invations.html", student=current_user)
+    return render_template("student/student-invitations.html", student=current_user)
 
 @views.route('/student-live-session')
 def student_live_session():
@@ -102,7 +102,7 @@ def student_live_session_end():
 
 @views.route('/student-recent-chats')
 def student_recent_chats():
-    return render_template("student/student-live-session-end.html", student=current_user)
+    return render_template("student/student-recent-chats.html", student=current_user)
 
 @views.route('/student-view-materials')
 def student_view_materials():

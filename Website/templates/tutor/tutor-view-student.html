@@ -13,7 +13,7 @@
 </head>
 <body>
     <div class="container">
-        <a href="{{ url_for('tutor_bookings') }}" class="back-link">← Back to Bookings</a>
+        <a href="{{ url_for('views.tutor_bookings') }}" class="back-link">← Back to Bookings</a>
         
         {% if current_time %}
         <div class="time-display">Time: {{ current_time }}</div>

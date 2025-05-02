@@ -60,7 +60,7 @@
                 <div class="invitation-card">
                     <p><strong>Dr. Sarah Johnson</strong> is inviting you to a Live Whiteboard Session!</p>
                     <div class="invitation-actions">
-                        <button class="btn-accept"><i class="fas fa-check"></i> Join</button>
+                        <a href="{{ url_for('views.student_live_session') }}"><button class="btn-accept"><i class="fas fa-check"></i> Join</button></a>
                         <button class="btn-decline"><i class="fas fa-times"></i> Decline</button>
                     </div>
                 </div>
