@@ -78,35 +78,35 @@ def student_details():
 
         
 
-    return "<h2>Student Details</h2>"
+    return render_template("student/student-details.html", student=current_user)
 
 @views.route('/student-view-bookings')
 def student_view_bookings():
-    return "<h2>Student View Bookings</h2>"
+    return render_template("student/student-view-bookings.html", student=current_user)
 
 @views.route('/student-chat')
 def student_chat():
-    return "<h2>Chat<h2>"
+    return render_template("student/student-chat.html", student=current_user)
 
 @views.route('/student-invitations')
 def student_invitations():
-    return render_template("student/student-invitations.html", student=current_user)
+    return render_template("student/student-invations.html", student=current_user)
 
 @views.route('/student-live-session')
 def student_live_session():
-    return "<h2>Student Live Session</h2>"
+    return render_template("student/student-live-session.html", student=current_user)
 
 @views.route('/student-live-session-end')
 def student_live_session_end():
-    return "<h2>Student Live Session End</h2>"
+    return render_template("student/student-live-session-end.html", student=current_user)
 
 @views.route('/student-recent-chats')
 def student_recent_chats():
-    return "<h2>Student Recent Chats</h2>"
+    return render_template("student/student-live-session-end.html", student=current_user)
 
 @views.route('/student-view-materials')
 def student_view_materials():
-    return "<h2>Student View Materials</h2>"
+    return render_template("student/student-view-materials.html", student=current_user)
 
 @views.route('/student-view-tutor')
 def student_view_tutor():

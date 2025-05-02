@@ -1,71 +1,54 @@
-from flask import Blueprint, render_template, redirect, url_for,request, flash, current_app
+# Website/__init__.py
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, current_user
 from os import path
-from werkzeug.utils import secure_filename
-from flask import current_app
-import os 
-from .auth import auth
-from .views import views
+import os
+
+db = SQLAlchemy()
+login_manager = LoginManager()
+DB_NAME = 'database.db'
+ALLOWED_EXTENSIONS = {'png','jpg', 'jpeg', 'gif', 'mp4', 'avi', 'mov', 'pdf', 'docx'}
 
 UPLOAD_FOLDER = os.path.join(os.getcwd(), 'static/uploads/profile-pics')
-if not os.path.exists(UPLOAD_FOLDER):
-    os.makedirs(UPLOAD_FOLDER)
-    print("Created upload folder:", UPLOAD_FOLDER)
-ALLOWED_EXTENSIONS = {'png','jpg', 'jpeg', 'gif', 'mp4', 'avi', 'mov', 'pdf', 'docx'}
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-db = SQLAlchemy()
-DB_NAME = 'database.db'
-login_manager = LoginManager()
-
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'airbus'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+    app.config['MATERIAL_UPLOAD_FOLDER'] = os.path.join(app.static_folder, 'uploads/materials')
+    os.makedirs(app.config['MATERIAL_UPLOAD_FOLDER'], exist_ok=True)
+
     db.init_app(app)
-
-    from .auth import auth
-    from .views import views
-
-
-    app.register_blueprint(auth, url_prefix='') 
-    app.register_blueprint(views, url_prefix='')
-
-    from .models import Tutor, Student
-
-
-    create_database(app)
-
-    login_manager=LoginManager()
     login_manager.login_view = 'auth.tutor_login'
     login_manager.init_app(app)
+
+    from .models import Tutor, Student  # <-- imported after db is set up
 
     @login_manager.user_loader
     def load_user(id):
         return Tutor.query.get(int(id)) or Student.query.get(int(id))
-    
-    
+
     @app.context_processor
     def inject_user():
         return dict(tutor=current_user)
 
+    from .auth import auth
+    from .views import views
 
-    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+    app.register_blueprint(auth, url_prefix='')
+    app.register_blueprint(views, url_prefix='')
 
-    def allowed_file(filename):
-        return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-    from .models import Tutor
-
-    def load_user(user_id):
-        return Tutor.query.get(int(user_id))
+    create_database(app)
 
     return app
 
@@ -75,10 +58,3 @@ def create_database(app):
         with app.app_context():
             db.create_all()
         print('Database Created!')
-
-
-def create_app():
-    app = Flask(__name__)
-    app.config['MATERIAL_UPLOAD_FOLDER'] = os.path.join(app.static_folder, 'uploads/materials')
-    os.makedirs(app.config['MATERIAL_UPLOAD_FOLDER'], exist_ok=True)
-    return app
