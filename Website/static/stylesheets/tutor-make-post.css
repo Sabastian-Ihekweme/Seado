@@ -1,0 +1,81 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    display: flex;
+  }
+  .sidebar-space {
+    width: 250px;
+    flex-shrink: 0;
+  }
+  .content {
+    flex-grow: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  textarea {
+    width: 100%;
+    height: 120px;
+    padding: 10px;
+    font-size: 16px;
+    resize: vertical;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+  }
+  .button-group, .thumbnail-group, .tag-group, .action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .button-group button,
+  .thumbnail-group button,
+  .action-buttons button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .button-group button,
+  .thumbnail-group button {
+    background-color: #eee;
+  }
+  .action-buttons .post-btn {
+    background-color: #6a5acd;
+    color: #fff;
+  }
+  .action-buttons .cancel-btn {
+    background-color: #ccc;
+  }
+  .thumbnail-placeholder {
+    width: 80px;
+    height: 80px;
+    background-color: #999;
+    border-radius: 10px;
+  }
+  input[type="text"] {
+    flex-grow: 1;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+  }
+  @media (max-width: 768px) {
+    .sidebar-space {
+      width: 0;
+    }
+    .content {
+      padding: 20px;
+    }
+  }
+
+  .content {
+    margin-left: 250px;
+  }
