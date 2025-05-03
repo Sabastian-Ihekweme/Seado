@@ -35,6 +35,7 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     tutor_id = db.Column(db.Integer, db.ForeignKey('tutor.id'), nullable=False)
     title = db.Column(db.String(150), nullable=False)
+    type = db.Column(db.String(150), nullable=False)
     description = db.Column(db.Text, nullable=True)
     image = db.Column(db.String(255), nullable=True)
     video = db.Column(db.String(255), nullable=True)
