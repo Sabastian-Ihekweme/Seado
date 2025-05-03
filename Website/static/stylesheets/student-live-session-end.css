@@ -1,0 +1,73 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #fff;
+    text-align: center;
+  }
+  .logo {
+    width: 100px;
+    margin-bottom: 10px;
+  }
+  .brand {
+    font-size: 24px;
+    font-weight: bold;
+    color: #5e3b8c;
+    margin-bottom: 20px;
+  }
+  .message {
+    font-size: 18px;
+    margin: 10px 20px;
+    max-width: 600px;
+  }
+  .rate {
+    font-size: 20px;
+    margin-top: 20px;
+  }
+  .stars {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  .star {
+    font-size: 40px;
+    cursor: pointer;
+    color: #bbb;
+    transition: color 0.3s ease;
+  }
+  .star:hover,
+  .star.selected {
+    color: gold;
+  }
+  @media (max-width: 600px) {
+    .message {
+      font-size: 16px;
+    }
+    .star {
+      font-size: 32px;
+    }
+  }
+
+  .exit-btn {
+    background-color: #5e3b8c;
+    border: none;
+    color: white;
+    padding: 10px;
+    padding-left: 16px;
+    padding-right: 16px;
+    margin-top: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 50px;
+  }
+.exit-btn:hover {
+    background-color: #5e3b8cc5;
+    transition: 0.1s;
+}
+.exit-btn:active {
+    background-color: #3f285ec5;
+}
