@@ -35,7 +35,9 @@ def tutor_details():
 
 @views.route('/tutor-bookings')
 def tutor_bookings():
-    return render_template("tutor/tutor-bookings.html")
+    tutor_id = current_user.id
+    bookings = Booking.query.filter_by(tutor_id=tutor_id).all()
+    return render_template("tutor/tutor-bookings.html", bookings=bookings)
 
 @views.route('/tutor-make-post')
 def tutor_make_post():

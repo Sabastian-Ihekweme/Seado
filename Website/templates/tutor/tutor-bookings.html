@@ -16,24 +16,29 @@
 
 <body>
 
-        {% for booking in bookings %}
-        <ul>
-        <div class="booking-card">
-          <div>
-            <div class="booking-sub-info">Date: {{ booking.timestamp }}</div>
-          </div>
-          <div class="action-buttons">
-            <form action="{{ url_for('views.student_profile', student_id=booking.student.id) }}">
-              <button>View Student</button>
-              <button>Chat</button>
-              <button class="accepted">Accept Booking</button>
-            </form>
-          </div>
-          {% else %}
-          No bookings yet.
+  {% if bookings %}
+  {% for booking in bookings %}
+  <ul>
+    <div class="booking-card">
+      <div>
+        <div class="booking-info">
+          Student: {{ booking.student.firstName }} {{ booking.student.lastName }}
         </div>
-        </ul>
-        {% endfor %}
+        <div class="booking-sub-info">Date: {{ booking.timestamp.strftime('%Y-%m-%d') }}</div>
+      </div>
+      <div class="action-buttons">
+        <form action="">
+          <button>View Student</button>
+          <button>Chat</button>
+          <button onclick="acceptBooking(this)" class="accepted">Accept Booking</button>
+        </form>
+      </div>
+    </div>
+  </ul>
+  {% endfor %}
+{% else %}
+  <p>No bookings yet.</p>
+{% endif %}
       
     
     
