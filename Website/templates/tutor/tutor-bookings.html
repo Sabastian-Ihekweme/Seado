@@ -16,6 +16,19 @@
 
 <body>
 
+  <div class="flash-container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="flash-message {{ category }}">
+                {{ message|safe }}  <!-- This ensures HTML inside the flash message is rendered -->
+                <button onclick="this.parentElement.style.display='none'">×</button>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+</div>
+
   {% if bookings %}
   {% for booking in bookings %}
   <ul>
@@ -29,9 +42,15 @@
       <div class="action-buttons">
         <form action="{{ url_for('views.tutor_view_student',  student_id=booking.student.id) }}">
           <button type="Submit">View Student</button>
-          <button>Chat</button>
-          <button onclick="acceptBooking(this)" class="accepted">Accept Booking</button>
         </form>
+          <button>Chat</button>
+          {% if booking.accepted %}
+            <button class="accepted">Booking Accepted</button>
+          {% else %}
+            <form method="POST" action="{{ url_for('views.accept_booking', booking_id=booking.id) }}">
+              <button type="submit" class="accepted">Accept Booking</button>
+            </form>
+          {% endif %}
       </div>
     </div>
   </ul>

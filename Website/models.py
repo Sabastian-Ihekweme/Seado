@@ -67,6 +67,8 @@ class Booking(db.Model):
     student_id = db.Column(db.Integer, db.ForeignKey('student.id'), nullable=False)
     tutor_id = db.Column(db.Integer, db.ForeignKey('tutor.id'), nullable=False)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    accepted = db.Column(db.Boolean, default=False)
 
     student = db.relationship('Student', backref='bookings')
     tutor = db.relationship('Tutor', backref='bookings')
+

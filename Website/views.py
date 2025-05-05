@@ -39,6 +39,15 @@ def tutor_bookings():
     bookings = Booking.query.filter_by(tutor_id=tutor_id).all()
     return render_template("tutor/tutor-bookings.html", bookings=bookings)
 
+@views.route('/accept-booking/<int:booking_id>', methods=['POST'])
+def accept_booking(booking_id):
+    booking = Booking.query.get_or_404(booking_id)
+    booking.accepted = True
+    db.session.commit()
+    flash("Booking accepted", "success")
+    return redirect(url_for('views.tutor_bookings'))
+
+
 @views.route('/tutor-make-post')
 def tutor_make_post():
     return render_template("tutor/tutor-make-post.html")
@@ -64,6 +73,11 @@ def tutor_view_student(student_id):
     student = Student.query.get_or_404(student_id)
     return render_template("tutor/tutor-view-student.html", student=student)
 
+@views.route('/tutor-whiteboard-session')
+def tutor_whiteboard_session():
+    tutor_id = current_user.id
+    bookings = Booking.query.filter_by(tutor_id=tutor_id, accepted=True).all()
+    return render_template("tutor/tutor-whiteboard-session.html", bookings=bookings)
 
 
 #student views
