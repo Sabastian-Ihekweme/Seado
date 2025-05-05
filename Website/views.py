@@ -59,9 +59,10 @@ def tutor_recent_chats():
 def tutor_view_post():
     return render_template("tutor/tutor-view-post.html")
 
-@views.route('/tutor-view-student')
-def tutor_view_student():
-    return render_template("tutor/tutor-view-student.html")
+@views.route('/tutor-view-student/<int:student_id>')
+def tutor_view_student(student_id):
+    student = Student.query.get_or_404(student_id)
+    return render_template("tutor/tutor-view-student.html", student=student)
 
 
 

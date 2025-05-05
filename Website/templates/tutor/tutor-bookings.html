@@ -27,8 +27,8 @@
         <div class="booking-sub-info">Date: {{ booking.timestamp.strftime('%Y-%m-%d') }}</div>
       </div>
       <div class="action-buttons">
-        <form action="">
-          <button>View Student</button>
+        <form action="{{ url_for('views.tutor_view_student',  student_id=booking.student.id) }}">
+          <button type="Submit">View Student</button>
           <button>Chat</button>
           <button onclick="acceptBooking(this)" class="accepted">Accept Booking</button>
         </form>
