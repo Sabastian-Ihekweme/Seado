@@ -4,27 +4,42 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>View Tutor</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/dashboard-style.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/student-view-tutor.css') }}">
     </head>
 
 <body>
+
+    <div class="flash-container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash-message {{ category }}">
+                    {{ message|safe }}  <!-- This ensures HTML inside the flash message is rendered -->
+                    <button onclick="this.parentElement.style.display='none'">×</button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    </div>
+
+
     <div class="container">
         <header>
-            <h1>View Tutor</h1>
+            <h1>{{ tutor.firstName }} {{ tutor.lastName }}</h1>
         </header>
         <main>
             <div class="profile-image">
                 <img src="{{ url_for('static', filename='icons/teacher-icon.png') }}" alt="Profile Image">
             </div>
             <div class="details">
-                <p><strong>Name:</strong></p>
-                <p><strong>Expertise:</strong></p>
-                <p><strong>Qualification:</strong></p>
-                <p><strong>Date of Birth:</strong></p>
-                <p><strong>Gender:</strong></p>
-                <p><strong>About: (Name)</strong></p>
+                <p><strong>Name: {{ tutor.firstName}} {{ tutor.lastName }}</strong></p>
+                <p><strong>Expertise: {{ tutor.course }}</strong></p>
+                <p><strong>Qualification: {{ tutor.qualification }}</strong></p>
             </div>
-            <button onclick="handlebooking()">Book Live Session</button>
+            <form method="POST" action="{{ url_for('views.student_view_tutor', tutor_id=tutor.id) }}">
+            <button type="submit" onclick="handlebooking()">Book Live Session</button>
+            </form>
         </main>
     </div>
 </body>

@@ -12,8 +12,23 @@
     <script src="https://kit.fontawesome.com/a076d05399.jss" crossorigin="anonymous"></script>
 </head>
 <body>
+
+    <div class="flash-container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash-message {{ category }}">
+                    {{ message|safe }}  <!-- This ensures HTML inside the flash message is rendered -->
+                    <button onclick="this.parentElement.style.display='none'">×</button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    </div>
    
     <div class="container">
+
+
 
         <div class="side-pane">
             <div class="seado">
@@ -50,10 +65,10 @@
             </div>
 
 
-                <p class="tutor-name">Welcome, {{ student.firstName }} {{ student.lastName }}</p>
+                <p class="tutor-name">Welcome, Sabastian Fabian</p>
     
-            <form class="search-form">
-                <p class="search-engine"><input type="text" name="search" class="search-materials" id="search" placeholder="Search Tutors/Materials"></p>
+            <form class="search-form" action="{{ url_for('search') }}" method="get">
+                <p class="search-engine"><input type="text" name="q" class="search-materials" id="search" placeholder="Search Tutors/Materials" required><button type="submit">Search</button></p>
             </form>
             </div>
         </div>
@@ -63,50 +78,24 @@
     <div class="tutor-posts">
 
         <div class="search-results">
-            <div class="tutors">
-                <p>Tutors related to your search:</p>
-                <ul>
-                    
-                    <a href="{{ url_for('views.student_view_tutor') }}" class="tutor-profile"><li class="tutor-profile">
-                    <div class="tutor-profile">
-                        <img src="" class="tutor-profile-picture" name="tutor-profile-picture" id="tutor-profile-picture" alt="tutor"/>
-                        <div class="tutor-name">Tutor 1</div>
-                        <div class="tutor-course">Aviation Management</div>
-                    </div>
-                    </a></li>
-
-
-                    <a href="" class="tutor-profile"><li class="tutor-profile">
-                    <div class="tutor-profile">
-        
-                        <img src="" class="tutor-profile-picture" name="tutor-profile-picture" id="tutor-profile-picture" alt="tutor"/>
-                        <div class="tutor-name">Tutor 2</div>
-                        <div class="tutor-course">Software Engineering</div>
-                    </div>
-                    </a></li>
-
-
-                    <a href="" class="tutor-profile"><li class="tutor-profile">
-                    <div class="tutor-profile">
-        
-                        <img src="" class="tutor-profile-picture" name="tutor-profile-picture" id="tutor-profile-picture" alt="tutor"/>
-                        <div class="tutor-name">Tutor 3</div>
-                        <div class="tutor-course">Computer Science</div>
-                    </div>
-                    </a></li>
-
-
-                    <a href="{{ url_for('views.student_view_tutor') }}" class="tutor-profile"><li class="tutor-profile">
-                    <div class="tutor-profile">
-        
-                        <img src="" class="tutor-profile-picture" name="tutor-profile-picture" id="tutor-profile-picture" alt="tutor"/>
-                        <div class="tutor-name">Tutor 4</div>
-                        <div class="tutor-course">Mathematics</div>
-                    </div>
-                    </a></li>
-                </ul>
-
-              
+            <ul class="tutors">
+                {% if results %}
+                    {% for tutor in results %}
+                        <a href="{{ url_for('views.student_view_tutor', tutor_id=tutor.id) }}" class="tutor-profile">
+                            <li class="tutor-profile">
+                                <div class="tutor-profile">
+                                    <div class="tutor-name">{{ tutor.firstName }} {{ tutor.lastName }}</div>
+                                    <div class="tutor-course">{{ tutor.qualification or 'Not specified' }}</div>
+                                    <div class="tutor-course">{{ tutor.course or 'Not specified' }}</div>
+                                </div>
+                            </li>
+                        </a>
+                    {% endfor %}
+                {% else %}
+                    <p>No tutors found.</p>
+                {% endif %}
+            </ul>
+       
             </div>
 
 

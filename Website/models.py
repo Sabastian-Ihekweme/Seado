@@ -17,6 +17,8 @@ class Tutor(db.Model, UserMixin):
     profilePicture = db.Column(db.String(255), nullable=True)
 
 
+
+
 #Table for students
 class Student(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -29,6 +31,8 @@ class Student(db.Model, UserMixin):
     password = db.Column(db.String(150), nullable=False)
     profilePicture = db.Column(db.String(255), nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+
 
 #Table for posts
 class Post(db.Model):
@@ -44,7 +48,7 @@ class Post(db.Model):
     subjectTag = db.Column(db.String(150), nullable=True)
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
-    tutor = db.relationship('Tutor', backref=db.backref('posts', lazy=True))
+
 
 #Table for material
 class Material(db.Model):
@@ -55,4 +59,14 @@ class Material(db.Model):
     upload_date = db.Column(db.DateTime, default=datetime.utcnow)
     tutor_id = db.Column(db.Integer, db.ForeignKey('tutor.id'))
     
-    tutor = db.relationship('Tutor', backref=db.backref('materials', lazy=True))
+
+
+#Table for bookings
+class Booking(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    student_id = db.Column(db.Integer, db.ForeignKey('student.id'), nullable=False)
+    tutor_id = db.Column(db.Integer, db.ForeignKey('tutor.id'), nullable=False)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+
+    student = db.relationship('Student', backref='bookings')
+    tutor = db.relationship('Tutor', backref='bookings')

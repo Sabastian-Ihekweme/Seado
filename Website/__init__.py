@@ -1,7 +1,8 @@
 # Website/__init__.py
 
-from flask import Flask
+from flask import Flask, abort, flash, redirect, session, url_for, request, render_template
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 from flask_login import LoginManager, current_user
 from os import path
 import os
@@ -32,11 +33,14 @@ def create_app():
     login_manager.login_view = 'auth.tutor_login'
     login_manager.init_app(app)
 
-    from .models import Tutor, Student  # <-- imported after db is set up
+    from .models import Booking, Tutor, Student  # <-- imported after db is set up
 
     @login_manager.user_loader
     def load_user(id):
-        return Tutor.query.get(int(id)) or Student.query.get(int(id))
+        tutor = Tutor.query.get(int(id))
+        if tutor:
+            return tutor
+        return None
 
     @app.context_processor
     def inject_user():
@@ -50,6 +54,15 @@ def create_app():
 
     create_database(app)
 
+    @app.route('/search', methods=['GET'])
+    def search():
+        query = request.args.get('q', '').strip()
+        if query:
+            results = Tutor.query.filter(Tutor.firstName.ilike(f"%{query}%")).all()
+        else:
+            results = []
+        return render_template('student/student-dashboard.html', results=results, query=query)
+
     return app
 
 
@@ -58,3 +71,6 @@ def create_database(app):
         with app.app_context():
             db.create_all()
         print('Database Created!')
+
+
+    

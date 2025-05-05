@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash, current_app
+from flask import Blueprint, session, render_template, request, redirect, url_for, flash, current_app
 from .models import Tutor, Student, Post
 from .models import db
 from flask_login import login_user, LoginManager, logout_user, current_user
@@ -76,6 +76,7 @@ def tutor_login():
         if tutor and tutor.password:
             if check_password_hash(tutor.password, password):
                 login_user(tutor)
+                session['tutor_id'] = tutor.id
                 return redirect(url_for('views.tutor_dashboard'))
                 flash("Login successful!", "success")
             else:
@@ -141,26 +142,20 @@ def student_signup():
 
 @auth.route('/student-login', methods=['GET', 'POST'])
 def student_login():
-        
     if request.method == 'POST':
+
         email = request.form.get('email')
         password = request.form.get('password')
-        
-        
+
+        # (authenticate the student)
         student = Student.query.filter_by(email=email).first()
-
-
-
-        if student and student.password:
-            if check_password_hash(student.password, password):
-                login_user(student)
-                flash("Login successful!", "success")
-                return redirect(url_for('views.student_dashboard'))
-            else:
-                flash("Incorrect password. Please try again.", category="error")
-        else: 
-            flash("Email not found. Please try again", category="error")
-
+        if student and check_password_hash(student.password, password):
+            session['student_id'] = student.id  # ✅ THIS IS ESSENTIAL
+            login_user(student)
+            flash("Logged in successfully!", "success")
+            return redirect(url_for('views.student_dashboard'))
+        else:
+            flash("Invalid credentials.", "error")
 
     return render_template('student/student-login.html')
 

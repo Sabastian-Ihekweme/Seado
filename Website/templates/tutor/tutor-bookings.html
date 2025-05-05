@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutor Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/dashboard-style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/tutor-bookings.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <script src="{{ url_for('static', filename='scripts/script.js') }}"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.jss" crossorigin="anonymous"></script>
+</head>
+
+
+<body>
+
+        {% for booking in bookings %}
+        <ul>
+        <div class="booking-card">
+          <div>
+            <div class="booking-sub-info">Date: {{ booking.timestamp }}</div>
+          </div>
+          <div class="action-buttons">
+            <form action="{{ url_for('views.student_profile', student_id=booking.student.id) }}">
+              <button>View Student</button>
+              <button>Chat</button>
+              <button class="accepted">Accept Booking</button>
+            </form>
+          </div>
+          {% else %}
+          No bookings yet.
+        </div>
+        </ul>
+        {% endfor %}
+      
+    
+    
+      <script>
+        function acceptBooking(button) {
+          button.textContent = 'Booking Accepted';
+          button.classList.add('accepted');
+        }
+      </script>
+</body>
+
+
+</html>

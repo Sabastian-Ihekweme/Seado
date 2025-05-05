@@ -1,0 +1,45 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f8f8f8;
+    padding: 20px;
+  }
+
+  .booking-card {
+    background: #e5e5e5;
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 400px;
+  }
+
+  .booking-info {
+    font-weight: bold;
+  }
+
+  .booking-sub-info {
+    font-weight: normal;
+    font-size: 0.9em;
+    color: #444;
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 10px;
+  }
+
+  button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9em;
+    background-color: #6e6e6e;
+    color: white;
+  }
+
+  button.accepted {
+    background-color: #2ecc71;
+  }

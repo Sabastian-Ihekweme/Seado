@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for,request, flash
 from flask_login import login_required, current_user
-from .models import Tutor, Student
+from .models import Tutor, Student, Booking
 from .models import db
 from flask import current_app
 from .models import Material  
@@ -108,9 +108,34 @@ def student_recent_chats():
 def student_view_materials():
     return render_template("student/student-view-materials.html", student=current_user)
 
-@views.route('/student-view-tutor')
-def student_view_tutor():
-    return render_template("student/student-view-tutor.html", student=current_user)
+@views.route('/student-view-tutor/<int:tutor_id>', methods=['GET', 'POST'])
+def student_view_tutor(tutor_id):
+    tutor = Tutor.query.get_or_404(tutor_id)
+
+    if request.method == 'POST':
+        student_id = current_user.id
+        tutor_id = Tutor.query.get_or_404(tutor_id)
+        timestamp = datetime.now().date()
+
+        existing_booking = Booking.query.filter_by(tutor_id=tutor.id, student_id=student_id).first()
+
+        if existing_booking:
+            flash(f'You have already booked this tutor', 'error')
+        else:
+            #add new booking to database
+            new_booking = Booking (
+                student_id = student_id,
+                tutor_id = tutor.id,
+                timestamp = timestamp
+            )
+            db.session.add(new_booking)
+            db.session.commit()
+
+            flash(f'Booking request sent successfully!', 'success')
+            return redirect(url_for('views.student_dashboard'))
+    
+    return render_template("student/student-view-tutor.html", student=current_user, tutor=tutor)
+
 
 
 @views.route('/materials/<int:material_id>')
