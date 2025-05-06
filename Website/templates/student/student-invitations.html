@@ -44,7 +44,7 @@
 
             <div class="tutor-information">
                 <div class="profile-picture-div">
-                    <img class="profile-picture" src="{{ url_for('static', filename='uploads/profile-pics/' + (student.profilePicture if student.profilePicture else 'default.jpg'))}}">
+                    <img class="profile-picture" src="">
                 </div>
                 <p class="tutor-name">Welcome, {{ student.firstName }} {{ student.lastName }}</p>
             </div>
@@ -56,14 +56,32 @@
         <div class="invitations-content">
             <h1>Invitations</h1>
             
+
             <div class="invitation-list">
+
+            
+
+                {% for booking in bookings %}
+                <ul>
                 <div class="invitation-card">
-                    <p><strong>Dr. Sarah Johnson</strong> is inviting you to a Live Whiteboard Session!</p>
+            
+                    <p><strong>{{booking.tutor.firstName}} {{booking.tutor.lastName}}</strong> is inviting you to a Live Whiteboard Session!</p>
+           
                     <div class="invitation-actions">
-                        <a href="{{ url_for('views.student_live_session') }}"><button class="btn-accept"><i class="fas fa-check"></i> Join</button></a>
+                        <form action="{{ url_for('views.create_whiteboard', student_id=booking.student.id, booking_id=booking.id) }}">
+                        <button type="Submit" class="btn-accept"><i class="fas fa-check"></i> Join</button></a>
+                        </form>
                         <button class="btn-decline"><i class="fas fa-times"></i> Decline</button>
                     </div>
                 </div>
+                </ul>
+                {% else %}
+                No invitations yet.
+                {% endfor %}
+                
+    
+
+
             </div>
         </div>
     </div>

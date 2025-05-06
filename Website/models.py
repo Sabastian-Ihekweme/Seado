@@ -68,6 +68,8 @@ class Booking(db.Model):
     tutor_id = db.Column(db.Integer, db.ForeignKey('tutor.id'), nullable=False)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
     accepted = db.Column(db.Boolean, default=False)
+    whiteboard_id = db.Column(db.String(100), nullable=True)
+    invited = db.Column(db.Boolean, default=False)
 
     student = db.relationship('Student', backref='bookings')
     tutor = db.relationship('Tutor', backref='bookings')

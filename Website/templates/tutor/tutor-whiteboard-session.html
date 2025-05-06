@@ -14,6 +14,19 @@
     <script src="https://kit.fontawesome.com/a076d05399.jss" crossorigin="anonymous"></script>
 </head>
 <body>
+
+    <div class="flash-container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash-message {{ category }}">
+                    {{ message|safe }}  <!-- This ensures HTML inside the flash message is rendered -->
+                    <button onclick="this.parentElement.style.display='none'">×</button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    </div>
    
     <div class="container">
 
@@ -50,15 +63,31 @@
                 
                       </div>
                       <div class="action-buttons">
+
+                        {% if booking.invited %}
                         <form action="">
-                          <button  class="invite">Invite</button>
+                          <button  class="invite" disabled>Invited</button>
                         </form>
+                        {% else %}
+                        <form method="POST" action="{{ url_for('views.invite_student', booking_id=booking.id) }}">
+                            <button class="invite">Invite</button>
+                        </form>
+                        {% endif %}
                       </div>
                     </div>
                   </ul>
+
+
                   {% else %}
                   <p>No accepted bookings yet.</p>
                   {% endfor %}
+
+                  <div>
+                    <form action="">
+                    <button class="start-live" type="submit">Start Live Session</button>
+                    </form>
+                </div>
+
         </div>
 
 </body>

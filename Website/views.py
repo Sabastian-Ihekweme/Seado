@@ -7,6 +7,7 @@ from .models import Material
 import os
 from datetime import datetime
 from werkzeug.security import generate_password_hash
+import uuid
 
 views = Blueprint('views', __name__)
 
@@ -47,6 +48,14 @@ def accept_booking(booking_id):
     flash("Booking accepted", "success")
     return redirect(url_for('views.tutor_bookings'))
 
+@views.route('/invite-student/<int:booking_id>', methods=['POST'])
+def invite_student(booking_id):
+    booking = Booking.query.get_or_404(booking_id)
+    booking.invited = True
+    db.session.commit()
+    flash("Student Invited", "success")
+    return redirect(url_for('views.tutor_whiteboard_session'))
+
 
 @views.route('/tutor-make-post')
 def tutor_make_post():
@@ -80,6 +89,21 @@ def tutor_whiteboard_session():
     return render_template("tutor/tutor-whiteboard-session.html", bookings=bookings)
 
 
+#Whiteboard Route
+@views.route('/create-whiteboard/<int:student_id>/<int:booking_id>')
+def create_whiteboard(student_id, booking_id):
+    session_id = str(uuid.uuid4())
+
+    booking = Booking.query.get_or_404(booking_id)
+    booking.whiteboard_id = session_id
+    db.session.commit()
+
+    return redirect(url_for('views.whiteboard_room', session_id=session_id))
+
+@views.route('/Whiteboard/<session_id>')
+def whiteboard_room(session_id):
+    return render_template("tutor/tutor-live-session.html", session_id=session_id)
+
 #student views
 
 @views.route('/student-dashboard')
@@ -107,7 +131,10 @@ def student_chat():
 
 @views.route('/student-invitations')
 def student_invitations():
-    return render_template("student/student-invitations.html", student=current_user)
+    student_id = current_user.id
+    bookings = Booking.query.filter_by(student_id=student_id, invited=True).all()
+
+    return render_template("student/student-invitations.html", bookings=bookings, student=current_user)
 
 @views.route('/student-live-session')
 def student_live_session():
