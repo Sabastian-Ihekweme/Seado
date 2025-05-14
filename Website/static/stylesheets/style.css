@@ -125,7 +125,16 @@ input[list]:focus {
     box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5);
     outline: none;
 }
+.download-button[disabled] {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+}
 
+.post{
+    margin-bottom: 10px;
+    border: 1px solid black;
+}
 
 /* Flash message container */
 .flash-container {

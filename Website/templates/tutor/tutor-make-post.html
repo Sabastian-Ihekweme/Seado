@@ -35,24 +35,29 @@
 
         <div class="sidebar-space"></div>
   <div class="content">
-    <textarea placeholder="What's on your mind?"></textarea>
+
+    <form method="POST" action="{{ url_for('views.tutor_make_post') }}" enctype="multipart/form-data">
+    <textarea name="content" placeholder="Post description" required></textarea>
+
     <div class="button-group">
-      <button>Add Files &#x2795;</button>
+      <input type="file" name="file">
     </div>
+
     <div class="thumbnail-group">
       <div class="thumbnail-placeholder"></div>
-      <button>Upload Thumbnail &#x2795;</button>
+      <input type="file" name="thumbnail">
     </div>
-    <div class="button-group">
-      <button>Schedule &#x2795;</button>
-    </div>
+
     <div class="tag-group">
-      <input type="text" placeholder="Tag Subjects (e.g., Math, Science)" />
+      <input type="text" name="tags" placeholder="Tag Subjects (e.g., Math, Science)" />
     </div>
+
     <div class="action-buttons">
       <button class="post-btn">Post</button>
       <button class="cancel-btn">Cancel</button>
     </div>
+    </form>
+
   </div>
 
 </div>

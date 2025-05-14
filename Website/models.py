@@ -37,18 +37,15 @@ class Student(db.Model, UserMixin):
 #Table for posts
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.Text, nullable=False)
+    tags = db.Column(db.String(200))
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+
+    thumbnail = db.Column(db.String(200))
+    files = db.Column(db.Text)
+
     tutor_id = db.Column(db.Integer, db.ForeignKey('tutor.id'), nullable=False)
-    title = db.Column(db.String(150), nullable=False)
-    type = db.Column(db.String(150), nullable=False)
-    description = db.Column(db.Text, nullable=True)
-    image = db.Column(db.String(255), nullable=True)
-    video = db.Column(db.String(255), nullable=True)
-    document = db.Column(db.String(255), nullable=True)
-    thumbnail = db.Column(db.String(255), nullable=True)
-    subjectTag = db.Column(db.String(150), nullable=True)
-    date_created = db.Column(db.DateTime, default=datetime.utcnow)
-
-
+    tutor = db.relationship('Tutor', backref='posts', lazy=True)
 
 #Table for material
 class Material(db.Model):
@@ -70,6 +67,7 @@ class Booking(db.Model):
     accepted = db.Column(db.Boolean, default=False)
     whiteboard_id = db.Column(db.String(100), nullable=True)
     invited = db.Column(db.Boolean, default=False)
+    room = db.Column(db.String(100), nullable=True)
 
     student = db.relationship('Student', backref='bookings')
     tutor = db.relationship('Tutor', backref='bookings')

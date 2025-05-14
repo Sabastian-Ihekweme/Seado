@@ -41,9 +41,7 @@
                 </div>
             </div>
             <div class="tutor-information">
-                <div class="profile-picture-div">
-                    <img class="profile-picture" src="{{ url_for('static', filename='uploads/profile-pics/' + (student.profilePicture if student.profilePicture else 'default.jpg'))}}">
-                </div>
+
                 <p class="tutor-name">{{ student.firstName }} {{ student.lastName }}</p>
             </div>
         </div>
@@ -55,38 +53,24 @@
             <div class="details-card">
                 <h2>Personal Information</h2>
                 <div class="details-grid">
-                    <div class="detail-item">
-                        <span class="detail-label">Nationality:</span>
-                        <span class="detail-value">{{ student.nationality or 'Not specified' }}</span>
-                    </div>
+
                     <div class="detail-item">
                         <span class="detail-label">School:</span>
-                        <span class="detail-value">{{ student.school or 'Not specified' }}</span>
+                        <span class="detail-value">{{ student.school or 'N/A'}}</span>
                     </div>
                     <div class="detail-item">
                         <span class="detail-label">Level of Study:</span>
-                        <span class="detail-value">{{ student.studyLevel or 'Not specified' }}</span>
+                        <span class="detail-value">{{ student.levelOfStudy or 'N/A' }}</span>
                     </div>
                     <div class="detail-item">
                         <span class="detail-label">Year:</span>
-                        <span class="detail-value">{{ student.year or 'Not specified' }}</span>
+                        <span class="detail-value">{{ student.year or 'N/A'}}</span>
                     </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Age:</span>
-                        <span class="detail-value">{{ student.age or 'Not specified' }}</span>
-                    </div>
-                </div>
 
-                <div class="about-me-section">
-                    <h3>About me</h3>
-                    <p class="about-me-text">{{ student.bio or 'No information provided' }}</p>
-                </div>
-
-                <div class="edit-profile-btn">
-                    <button class="btn-edit"><i class="fas fa-edit"></i> Edit Profile</button>
-                </div>
             </div>
+        
         </div>
+    </form>
     </div>
 </body>
 </html>

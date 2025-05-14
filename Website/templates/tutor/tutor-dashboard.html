@@ -64,44 +64,42 @@
 
             <p class="your-posts">Your Posts:</p>
 
-            <div class="post-list">
-                <div class="scrollable div">
+   
+                    {% for post in tutor_posts %}
                 <ul>
-
-                <a href="{{ url_for('views.tutor_view_post') }}">
-                    <div class="post">
-                        <div class="thumbnail">
-                            <img class="post-thumbnail" src=""/>
-                        </div>
-                       <div class="post-name">Post 1</div>
-                       <div class="post-author">Posted by You</div>
-
-                       <div class="post-type">PDF</div>
-                        <div class="post-date">3/31/2025</div>
-                    </div>
-                    </a>
-
-                    <div class="post">
-                        <div class="thumbnail">
-                            <img class="post-thumbnail" src=""/>
-                        </div>
-                        <div class="post-name">Post 2</div>
+                    <div class="post"
+                    >
+                        <div class="post-name">{{ post.content or 'Untitled Post'}}</div>
                         <div class="post-author">Posted by You</div>
  
-                        <div class="post-type">Video</div>
-                         <div class="post-date">3/31/2025</div>
-                    </div>
-
-                    <div class="post">
-                        <div class="thumbnail">
-                            <img class="post-thumbnail" src=""/>
+                        <div class="post-type">
+                        {% if post.files %}
+                            {% set extensions = post.files.split(',') %}
+                            {% if extensions[0].lower().endswith(('.mp4', '.mov', '.avi')) %}
+                                Video
+                            {% elif extensions[0].lower().endswith(('.pdf', '.docx')) %}
+                                Document
+                            {% else %}
+                                File
+                            {% endif %}
+                        {% else %}
+                            Text
+                        {% endif %}
                         </div>
-                        <div class="post-name">Post 3</div>
-                        <div class="post-author">Posted by You</div>
- 
-                        <div class="post-type">Image</div>
-                        <div class="post-date">3/31/2025</div>
-                    </div>
+                         <div class="post-date">{{ post.timestamp.strftime('%m/%d/%Y') }}</div>
+                         {% if post.files %}
+                         <div class="post-download">
+                             <a href="{{ url_for('static', filename='uploads/' + post.files) }}" download class="download-button" style="color:black">Download File</a>
+                         </div>
+                         {% endif %}
+                        
+                        </div>
+                    </ul>
+                        {% else %}
+                        <p>You haven't made any posts yet.</p>
+                        {% endfor %}
+
+                
         
                     </div>
                 </ul>

@@ -68,9 +68,9 @@
                     <p><strong>{{booking.tutor.firstName}} {{booking.tutor.lastName}}</strong> is inviting you to a Live Whiteboard Session!</p>
            
                     <div class="invitation-actions">
-                        <form action="{{ url_for('views.create_whiteboard', student_id=booking.student.id, booking_id=booking.id) }}">
-                        <button type="Submit" class="btn-accept"><i class="fas fa-check"></i> Join</button></a>
-                        </form>
+                        <a href="{{ url_for('tutor', filename = 'tutor-live-session.html') }}" target="_blank">
+                            <button type="Submit" class="btn-accept"><i class="fas fa-check"></i> Join</button></a>
+                        </a>
                         <button class="btn-decline"><i class="fas fa-times"></i> Decline</button>
                     </div>
                 </div>

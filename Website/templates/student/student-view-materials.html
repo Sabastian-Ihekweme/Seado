@@ -13,18 +13,29 @@
         </header>
         <main>
             <div class="material-preview">
-                <img src="{{ url_for('static', filename='icons/details-icon.png') }}" alt="Material Preview">
-            </div>
             <div class="details">
-                <p><strong>Material Name</strong></p>
-                <p><strong>Uploaded By (Tutor Name)</strong></p>
-                <p><strong>Type:</strong> pdf</p>
-                <p><strong>Date Uploaded:</strong> 3/29/2025</p>
+                <p><strong>Material Name: {{ post.content }}</strong></p>
+                <p><strong>Uploaded By {{ tutor.firstName}}</strong></p>
+                <p><strong>Type:</strong>
+                    {% if post.files %}
+                    {% if post.files.endswith('.pdf') %}
+                        PDF
+                    {% elif post.files.endswith('.jpg') %}
+                        Image
+                    {% else %}
+                        Other
+                    {% endif %}
+                {% else %}
+                    No file
+                {% endif %}
+                </p>
+                <p><strong>Date Uploaded:</strong> {{ post.timestamp.strftime('%m/%d/%Y') }}</p>
             </div>
             <button class="download-btn">
                 <img src="{{ url_for('static', filename='icons/download-icon.png') }}" alt="Download Icon">
-                Download File
+                <a href="{{ url_for('static', filename='uploads/' + post.files) }}" class="download-link">Download File</a>
             </button>
+            </div>
         </main>
     </div>
 </body>

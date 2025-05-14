@@ -1,15 +1,20 @@
-from flask import Blueprint, render_template, redirect, url_for,request, flash
+from flask import Blueprint, render_template, redirect, url_for,request, flash, current_app
 from flask_login import login_required, current_user
-from .models import Tutor, Student, Booking
+from .models import Tutor, Student, Booking, Post
 from .models import db
 from flask import current_app
 from .models import Material  
 import os
 from datetime import datetime
 from werkzeug.security import generate_password_hash
+from werkzeug.utils import secure_filename
 import uuid
 
 views = Blueprint('views', __name__)
+
+def allowed_file(filename):
+    ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'pdf', 'docx'}
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 #tutor views
 
@@ -17,7 +22,10 @@ views = Blueprint('views', __name__)
 @login_required
 def tutor_dashboard():
 
-    return render_template("tutor/tutor-dashboard.html")
+    #Fetch posts made by tutor
+    tutor_posts = Post.query.filter_by(tutor_id=current_user.id).order_by(Post.timestamp.desc()).all()
+
+    return render_template("tutor/tutor-dashboard.html", tutor_posts=tutor_posts)
 
 @views.route('/tutor-details', methods=['GET', 'POST'])
 @login_required
@@ -57,8 +65,57 @@ def invite_student(booking_id):
     return redirect(url_for('views.tutor_whiteboard_session'))
 
 
-@views.route('/tutor-make-post')
+@views.route('/tutor-make-post', methods=['GET', 'POST'])
 def tutor_make_post():
+    if request.method == 'POST':
+        upload_path = current_app.config['UPLOAD_FOLDER']
+        content = request.form.get('content')
+        tags = request.form.get('tags')
+        thumbnail = request.files.get('thumbnail')
+        files = request.files.getlist('file')
+
+        if not content:
+            flash("Content is required!", category="error")
+            return redirect(request.url)
+
+        thumbnail_filename = None
+        if thumbnail and allowed_file(thumbnail.filename):
+            thumbnail_filename = secure_filename(thumbnail.filename)
+            thumbnail.save(os.path.join(upload_path, thumbnail_filename))
+
+        
+        uploaded_filenames=[]
+        if files:
+            for file in files:
+                if file and allowed_file(file.filename):
+                    filename = secure_filename(file.filename)
+
+                    upload_path = os.path.join(current_app.root_path, 'static', 'uploads')
+                    os.makedirs(upload_path, exist_ok=True)
+
+                    file_path = os.path.join(upload_path, filename)
+                    file.save(file_path)
+
+                    uploaded_filenames.append(filename)
+                
+
+        files_string = ','.join(uploaded_filenames) if uploaded_filenames else ''  
+
+
+        new_post = Post(
+            content=content,
+            tags=tags,
+            thumbnail=thumbnail_filename,
+            files=files_string,
+            tutor_id=current_user.id
+        )
+        db.session.add(new_post)
+        db.session.commit()
+
+        flash("Post successfully created!", category="success")
+        return redirect(url_for('views.tutor_dashboard'))
+
+
     return render_template("tutor/tutor-make-post.html")
 
 @views.route('/tutor-chat')
@@ -90,19 +147,12 @@ def tutor_whiteboard_session():
 
 
 #Whiteboard Route
-@views.route('/create-whiteboard/<int:student_id>/<int:booking_id>')
-def create_whiteboard(student_id, booking_id):
-    session_id = str(uuid.uuid4())
+@views.route('/start_whiteboard')
+@login_required
+def start_whiteboard():
+    whiteboard_url = ""  # Ideally generated/stored per session
+    return render_template("tutor-live-session.html", whiteboard_url=whiteboard_url)
 
-    booking = Booking.query.get_or_404(booking_id)
-    booking.whiteboard_id = session_id
-    db.session.commit()
-
-    return redirect(url_for('views.whiteboard_room', session_id=session_id))
-
-@views.route('/Whiteboard/<session_id>')
-def whiteboard_room(session_id):
-    return render_template("tutor/tutor-live-session.html", session_id=session_id)
 
 #student views
 
@@ -111,13 +161,13 @@ def student_dashboard():
     if not current_user.is_authenticated:
         return redirect(url_for('auth.student_login'))
 
-    return render_template("student/student-dashboard.html", student=current_user)
+    return render_template("student/student-dashboard.html", student=current_user, posts=Post)
 
 
 @views.route('/student-details')
+@login_required
 def student_details():
 
-        
 
     return render_template("student/student-details.html", student=current_user)
 
@@ -148,9 +198,12 @@ def student_live_session_end():
 def student_recent_chats():
     return render_template("student/student-recent-chats.html", student=current_user)
 
-@views.route('/student-view-materials')
-def student_view_materials():
-    return render_template("student/student-view-materials.html", student=current_user)
+@views.route('/student-view-materials/<int:post_id>')
+def student_view_materials(post_id):
+    post = Post.query.get_or_404(post_id)
+    tutor = post.tutor
+
+    return render_template("student/student-view-materials.html", student=current_user, post=post, tutor=tutor)
 
 @views.route('/student-view-tutor/<int:tutor_id>', methods=['GET', 'POST'])
 def student_view_tutor(tutor_id):
@@ -227,3 +280,4 @@ def view_student(student_id):
     return render_template('view_student.html', 
                          student=student,
                          current_user=current_user)
+

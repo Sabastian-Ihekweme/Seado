@@ -65,7 +65,7 @@
             </div>
 
 
-                <p class="tutor-name">Welcome, Sabastian Fabian</p>
+                <p class="tutor-name">Welcome, {{student.firstName}} {{ student.lastName }}</p>
     
             <form class="search-form" action="{{ url_for('search') }}" method="get">
                 <p class="search-engine"><input type="text" name="q" class="search-materials" id="search" placeholder="Search Tutors/Materials" required><button type="submit">Search</button></p>
@@ -79,8 +79,8 @@
 
         <div class="search-results">
             <ul class="tutors">
-                {% if results %}
-                    {% for tutor in results %}
+                {% if tutor_results %}
+                    {% for tutor in tutor_results %}
                         <a href="{{ url_for('views.student_view_tutor', tutor_id=tutor.id) }}" class="tutor-profile">
                             <li class="tutor-profile">
                                 <div class="tutor-profile">
@@ -101,41 +101,34 @@
 
 
 
+            
             <div class="materials">
                 <p>Materials related to your search:</p>
                 <ul>
                     
-                    <a href="{{ url_for('views.student_view_materials') }}" class="tutor-materials"><li class="tutor-materials">
-                    <div class="tutor-matrials">
-                        <img src="" class="material-thumbnail" name="material-thumbnail" id="material-thumbnail" alt="material"/>
-                        <div class="material-name">Material 1</div>
-                        <div class="material-tutor">Posted By Tutor 1</div>
-                        <div class="material-date">4/8/2025</div>
-                        <div class="material-type">PDF</div>
+                    <ul class="material-list">
+                    {% for post in post_results %}
+                    <li class="tutor-materials">
+                        <a href="{{ url_for('views.student_view_materials', post_id=post.id) }}" class="tutor-materials">
+                        <div class="tutor-matrials">
+                        <div class="material-name">{{post.content[:50]}}</div>
+                        <div class="material-tutor">Posted By {{post.tutor.firstName}} {{ post.tutor.lastName}}</div>
+                        <div class="material-date">{{ post.timestamp.strftime('%m/%d/%Y') }}</div>
+                        <div class="material-type">            {% if post.files %}
+                            {{ post.files.split('.')[-1]|upper }}
+                          {% else %}
+                            No File
+                          {% endif %}
+                        </div>
                     </div>
-                    </a></li>
+                    </li>
+                    </a>
+                    {% endfor %}
+                    </ul>
+                    
 
 
-                        <a href="" class="tutor-materials"><li class="tutor-materials">
-                            <div class="tutor-matrials">
-                                <img src="" class="material-thumbnail" name="material-thumbnail" id="material-thumbnail" alt="material"/>
-                                <div class="material-name">Material 2</div>
-                                <div class="material-tutor">Posted By Tutor 3</div>
-                                <div class="material-date">4/8/2025</div>
-                                <div class="material-type">Video</div>
-                            </div>
-                            </a></li>                        
-
-                            <a href="" class="tutor-materials"><li class="tutor-materials">
-                                <div class="tutor-matrials">
-                                    <img src="" class="material-thumbnail" name="material-thumbnail" id="material-thumbnail" alt="material"/>
-                                    <div class="material-name">Material 3</div>
-                                    <div class="material-tutor">Posted By Tutor 4</div>
-                                    <div class="material-date">4/8/2025</div>
-                                    <div class="material-type">Image</div>
-                                </div>
-                                </a></li>
-              
+                        
             </div>
         </div>
 

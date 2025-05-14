@@ -25,7 +25,7 @@ def create_app():
     app.config['SECRET_KEY'] = 'airbus'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
-    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+    app.config['UPLOAD_FOLDER'] = 'static/uploads'
     app.config['MATERIAL_UPLOAD_FOLDER'] = os.path.join(app.static_folder, 'uploads/materials')
     os.makedirs(app.config['MATERIAL_UPLOAD_FOLDER'], exist_ok=True)
 
@@ -33,7 +33,7 @@ def create_app():
     login_manager.login_view = 'auth.tutor_login'
     login_manager.init_app(app)
 
-    from .models import Booking, Tutor, Student  # <-- imported after db is set up
+    from .models import Booking, Tutor, Student, Post  # <-- imported after db is set up
 
     @login_manager.user_loader
     def load_user(id):
@@ -57,11 +57,17 @@ def create_app():
     @app.route('/search', methods=['GET'])
     def search():
         query = request.args.get('q', '').strip()
+
+        tutor_results = []
+        post_results = []
+
         if query:
-            results = Tutor.query.filter(Tutor.firstName.ilike(f"%{query}%")).all()
+            tutor_results = Tutor.query.filter(Tutor.firstName.ilike(f"%{query}%")).all() 
+            post_results = Post.query.filter(Post.content.ilike(f"%{query}%")).all()
         else:
-            results = []
-        return render_template('student/student-dashboard.html', results=results, query=query)
+            tutor_results = []
+            post_results = Post.query.all()
+        return render_template('student/student-dashboard.html', tutor_results=tutor_results, post_results=post_results, query=query)
 
     return app
 
