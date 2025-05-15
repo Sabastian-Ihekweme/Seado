@@ -6,6 +6,7 @@
     <title>Student Invitations</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/student-live-session-end.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/flash.css') }}">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <script src="{{ url_for('static', filename='scripts/script.js') }}"></script>
@@ -13,6 +14,22 @@
 </head>
 
 <body>
+
+      <div class="flash-container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash-message {{ category }}">
+                    {{ message|safe }}  <!-- This ensures HTML inside the flash message is rendered -->
+                    <button onclick="this.parentElement.style.display='none'">×</button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    </div>
+
+
+
 
   <img src="{{ url_for('static', filename='icons/seado-logo.png')}}" alt="Seado Logo" class="logo" />
   <div class="message">

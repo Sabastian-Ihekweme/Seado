@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Student</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/view_student.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/flash.css') }}">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -12,6 +14,21 @@
     <script src="{{ url_for('static', filename='scripts/script.js') }}" defer></script>
 </head>
 <body>
+
+      <div class="flash-container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="flash-message {{ category }}">
+                {{ message|safe }}  <!-- This ensures HTML inside the flash message is rendered -->
+                <button onclick="this.parentElement.style.display='none'">×</button>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+</div>
+
+
     <div class="container">
         <a href="{{ url_for('views.tutor_bookings') }}" class="back-link">← Back to Bookings</a>
         

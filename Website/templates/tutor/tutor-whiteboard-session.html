@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/dashboard-style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/tutor-bookings.css') }}">   
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/tutor-whiteboard.css') }}">   
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/flash.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -14,6 +15,19 @@
     <script src="https://kit.fontawesome.com/a076d05399.jss" crossorigin="anonymous"></script>
 </head>
 <body>
+
+      <div class="flash-container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="flash-message {{ category }}">
+                {{ message|safe }}  <!-- This ensures HTML inside the flash message is rendered -->
+                <button onclick="this.parentElement.style.display='none'">×</button>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+</div>
 
     <div class="flash-container">
         {% with messages = get_flashed_messages(with_categories=true) %}
@@ -41,11 +55,10 @@
                     <a href="{{ url_for('views.tutor_details') }}"><li><i class="icon-details"></i> My Details</li></a>
                     <a href="{{ url_for('views.tutor_make_post') }}"><li><i class="icon-post"></i> Make A Post</li></a>
                     <a href="{{ url_for('views.tutor_bookings') }}"><li><i class="icon-bookings"></i> View Bookings</li></a>
-                    <a href="{{ url_for('views.tutor_live_session') }}"><li><i class="icon-whiteboard"></i> Whiteboard</li></a>
+                    <a href="{{ url_for('views.tutor_whiteboard_session') }}"><li><i class="icon-whiteboard"></i> Whiteboard</li></a>
                     <a href="{{ url_for('views.tutor_recent_chats') }}"><li><i class="icon-chat"></i> Chat</li></a>
                 </ul>
             </nav>
-
         </div>
 
         <div class="invitation-box">
@@ -83,7 +96,7 @@
                   {% endfor %}
 
                   <div>
-                    <a href="{{ url_for(filename='tutor-live-session.html') }}" target="_blank">
+                    <a href="{{ url_for('views.tutor_live_session') }}" target="_blank">
                     <button class="start-live" type="submit">Start Live Session</button>
                     </a>
                 </div>

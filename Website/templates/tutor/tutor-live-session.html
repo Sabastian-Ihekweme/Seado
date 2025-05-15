@@ -6,6 +6,7 @@
     <title>Live Whiteboard Session</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/tutor_live_session.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/flash.css') }}">   
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
@@ -13,6 +14,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
+
+      <div class="flash-container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="flash-message {{ category }}">
+                {{ message|safe }}  <!-- This ensures HTML inside the flash message is rendered -->
+                <button onclick="this.parentElement.style.display='none'">×</button>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+</div>
+
+
     <div class="header">
         <h1>You have started a Live Whiteboard Session!</h1>
     </div>

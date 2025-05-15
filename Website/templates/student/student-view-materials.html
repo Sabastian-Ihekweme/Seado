@@ -2,11 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/flash.css') }}">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Material</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/student-view-materials.css') }}">
 </head>
 <body>
+
+        <div class="flash-container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash-message {{ category }}">
+                    {{ message|safe }}  <!-- This ensures HTML inside the flash message is rendered -->
+                    <button onclick="this.parentElement.style.display='none'">×</button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    </div>
+
+
+
     <div class="container">
         <header>
             <h1>View Material</h1>
