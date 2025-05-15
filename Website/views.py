@@ -158,8 +158,7 @@ def start_whiteboard():
 
 @views.route('/student-dashboard')
 def student_dashboard():
-    if not current_user.is_authenticated:
-        return redirect(url_for('auth.student_login'))
+    
 
     return render_template("student/student-dashboard.html", student=current_user, posts=Post)
 
