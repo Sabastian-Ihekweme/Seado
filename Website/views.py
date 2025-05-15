@@ -164,7 +164,6 @@ def student_dashboard():
 
 
 @views.route('/student-details')
-@login_required
 def student_details():
 
 
